@@ -1,0 +1,126 @@
+function [ funstr, timer_include ] = gen_lqdocpip_timer()
+% timer_start() initialisiert den timer
+% timer_end() liest den timer aus und gibt die Differenzzeit in double
+% zurück
+global gendata
+global genstr
+
+genstr_save = [];
+timer_include = [];
+
+prefix = gendata.prefix;
+
+genstr = [];
+
+%% timer include str
+addc('include für Timer (plattformabhängig)')
+for ii = 1:length(gendata.timer)
+    if ii == 1
+        next_char = '#if ';
+    else
+        next_char = '#elif ';
+    end
+    
+    % Windows
+    if strcmp(gendata.timer{ii},'windows')
+        addl([next_char 'defined(__WIN32__) || defined(WIN32)'])
+        addc('  Windows')
+        addl('  #include "windows.h"')
+        
+    % dSpace
+    elseif strcmp(gendata.timer{ii},'dspace')
+        addl([next_char 'defined(_DS1103)'])
+        addc('  dSpace')
+        addl('  #include "brtenv.h"')
+        
+        
+    % Sonst: Unbekannt --> Fehler
+    else
+        error(['Unbekannter Timertyp: ' gendata.timer{ii}]);
+    end
+end
+addl('#endif')
+
+% include-str abspeichern und genstr zurücksetzen
+timer_include = genstr;
+genstr = [];
+
+%% timer start
+addc('######################################')
+addc('Diese Funktion initialisiert den Timer')
+addc('######################################')
+addl(['void ' prefix 'glqdocpip_timer_start()' char(10) '{'])
+
+for ii = 1:length(gendata.timer)
+    if ii == 1
+        next_char = '#if ';
+    else
+        next_char = '#elif ';
+    end
+    
+    % Windows
+    if strcmp(gendata.timer{ii},'windows')
+        addl([next_char 'defined(__WIN32__) || defined(WIN32)'])
+        addl(['  LARGE_INTEGER ' prefix 'tmp_counter, ' prefix 'tmp_frequency;'])
+        addl(['  QueryPerformanceFrequency(&' prefix 'tmp_frequency);'])
+        addl(['  QueryPerformanceCounter(&' prefix 'tmp_counter);'])
+        addl()
+        addl(['  ' prefix 'timer_start = (double) ' prefix 'tmp_counter.QuadPart/(double) ' prefix 'tmp_frequency.QuadPart;'])
+        
+        % dSpace
+    elseif strcmp(gendata.timer{ii},'dspace')
+        addl([next_char 'defined(_DS1103)'])
+        addl(['  ' prefix 'timer_start = (double) ds1103_timebase_fltread();'])
+        
+        % Sonst: Unbekannt --> Fehler
+    else
+        error(['Unbekannter Timertyp: ' gendata.timer{ii}]);
+    end
+end
+addl('#endif')
+
+addl('}')
+
+addl('')
+addl('')
+
+%% timer get
+addc('###################################################')
+addc('Diese Funktion gibt die Zeit seit Timerstart zurück')
+addc('###################################################')
+addl(['double ' prefix 'glqdocpip_timer_get()' char(10) '{'])
+
+for ii = 1:length(gendata.timer)
+    if ii == 1
+        next_char = '#if ';
+    else
+        next_char = '#elif ';
+    end
+    
+    % Windows
+    if strcmp(gendata.timer{ii},'windows')
+        addl([next_char 'defined(__WIN32__) || defined(WIN32)'])
+        addl(['  LARGE_INTEGER ' prefix 'tmp_counter, ' prefix 'tmp_frequency;'])
+        addl(['  QueryPerformanceFrequency(&' prefix 'tmp_frequency);'])
+        addl(['  QueryPerformanceCounter(&' prefix 'tmp_counter);'])
+        addl(['  return (double) ' prefix 'tmp_counter.QuadPart/(double) ' prefix 'tmp_frequency.QuadPart - ' prefix 'timer_start;'])
+        
+        % dSpace
+    elseif strcmp(gendata.timer{ii},'dspace')
+        addl([next_char 'defined(_DS1103)'])
+        addl(['  return (double) ds1103_timebase_fltread()- ' prefix 'timer_start;'])
+        
+        % Sonst: Unbekannt --> Fehler
+    else
+        error(['Unbekannter Timertyp: ' gendata.timer{ii}]);
+    end
+end
+addl('#endif')
+
+addl('}')
+
+funstr = genstr;
+
+genstr = [];
+end
+
