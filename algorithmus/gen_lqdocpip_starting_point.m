@@ -15,7 +15,7 @@ nu = gendata.dim.n_u;
 % Funktionskopf
 addc('#######################################')
 addc('Diese Funktion berechnet den Startpunkt')
-addc(['          Startpunktmethode: ' num2str(gendata.starting_point_methode) '         '])
+addc(['          Startpunktmethode: ' num2str(gendata.starting_point_method) '         '])
 addc('#######################################')
 addl(['static void ' prefix 'glqdocpip_starting_point()' char(10) '{'])
 
@@ -41,10 +41,10 @@ for k=0:K
     end
 end
 
-if gendata.starting_point_methode == 0
+if gendata.starting_point_method == 0
     %% Methode 0: Very Cold Start
     % Schon fertig
-elseif gendata.starting_point_methode == 5
+elseif gendata.starting_point_method == 5
     %% Methode 5
     addc('Methode 5')
     addc('Calc one step')

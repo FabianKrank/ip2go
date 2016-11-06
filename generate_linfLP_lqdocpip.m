@@ -12,10 +12,11 @@ generation_data.name = ['linflp_k' num2str(K)];
 
 generation_data.timer = {'windows'};
 
-generation_data.starting_point_methode = 0;
+generation_data.starting_point_method = 0;
 generation_data.precision = 'double';
 
 generation_data.parameter.max_iter = 100;
+generation_data.parameter.tol = 1e-4;
 
 generation_data.debug = 0;
 

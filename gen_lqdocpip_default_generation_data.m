@@ -11,7 +11,7 @@ generation_data.precision               = 'float';
 generation_data.debug                   = 0;
 generation_data.timer                   = {'windows'};
 generation_data.extern_timer_start      = 0;
-generation_data.starting_point_methode  = 0;
+generation_data.starting_point_method   = 0;
 generation_data.calc_macheps            = 1;
 
 

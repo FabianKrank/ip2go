@@ -275,7 +275,7 @@ gen_stat_section('norm_r');
 
 % Starting Point
 gendata.str.c.starting_point = gen_lqdocpip_starting_point();
-if gendata.starting_point_methode == 5
+if gendata.starting_point_method == 5
     gendata.str.c.rhs_starting_point_5 = gen_lqdocpip_rhs_starting_point_5();
 end
 gen_stat_section('starting_point');
@@ -367,7 +367,7 @@ cstr = [cstr char(10) char(10) gendata.str.c.factor];
 % Funktion: solve
 cstr = [cstr char(10) char(10) gendata.str.c.solve];
 % Funktion: rhs_starting_point_5
-if gendata.starting_point_methode == 5
+if gendata.starting_point_method == 5
     cstr = [cstr char(10) char(10) gendata.str.c.rhs_starting_point_5];
 end
 % Funktion: rhs_affine

@@ -287,7 +287,7 @@ addl(gen_var_single('dgap', 0, 1, 1, struct('no_k',1)))
 %% Variablen für Starting Point
 addl('')
 addc('Variablen für Starting Point')
-if gendata.starting_point_methode == 5
+if gendata.starting_point_method == 5
     addl(gen_var_single('starting_point_delta_y', 0, 1, 1, struct('no_k',1)))
     addl(gen_var_single('starting_point_delta_nu', 0, 1, 1, struct('no_k',1)))
     addl(gen_var_single('starting_point_sum', 0, 1, 1, struct('no_k',1)))

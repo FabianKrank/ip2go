@@ -14,7 +14,7 @@ generation_data.name = 'mpc123';
 
 generation_data.timer = {'windows' 'dspace'};
 
-generation_data.starting_point_methode = 5;
+generation_data.starting_point_method = 5;
 generation_data.precision = 'float';
 
 generation_data.debug = 1;
