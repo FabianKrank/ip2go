@@ -1,4 +1,4 @@
-function [array_data] = gen_fpga()
+function [array_data] = gen_fpga(data_dim)
 % Diese Funktion generiert den C-Code für ein Matlab-Interface für einen
 % mit gen_lqdocpip generierten Solver.
 % 
@@ -94,6 +94,6 @@ end
 var_in = {Jvars{1:end} eqvars{1:end} ineqvars{1:end}};
 
 %% Quellcodegenerierung
-array_data = gen_fpga_var_in(var_in);
+array_data = gen_fpga_var_in(var_in,data_dim);
 
 end

@@ -1,4 +1,4 @@
-function funstr = gen_fpga_var_in(vars)
+function array_data = gen_fpga_var_in(vars,data_dim)
 %Diese Funktion generiert die Variablendeklarationen
 %% #############
 % # Changelog #
@@ -15,7 +15,7 @@ global gendata
 global pstruc
 
 K = gendata.dim.K;
-
+array_data=zeros(data_dim,1);
 for i=1:length(vars)
     I2=0:K;
     I2= I2((vars{i}.dim1~=0)&(vars{i}.dim2~=0));
@@ -47,7 +47,7 @@ for i=1:length(vars)
         end
 
         ind=mem_getindex([vars{i}.name  num2str(k) ]);
-
+        array_data(ind:(ind+dim1*dim2-1))= reshape(gendata.matrix_structures.(vars{i}.name){k+1},dim1*dim2,1);
     end
 end
 
