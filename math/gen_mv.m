@@ -5,6 +5,7 @@ function output = gen_mv(n,m,s1,s2)
 global gendata
 prec = gendata.prec;
 prefix = gendata.prefix;
+pointer=gendata.math_arg_use_pointer;
 
 funstr = [];
 
@@ -32,8 +33,11 @@ else
 end
 
 % Funktion-Kopf
-funstr = ['static void ' prefix funid '(' prec ' *A, ' prec ' *b, ' prec ' *out)' char(10) '{' char(10)];
-
+if pointer
+    funstr = ['static void ' prefix funid '(' prec ' *A, ' prec ' *b, ' prec ' *out)' char(10) '{' char(10)];
+else
+    funstr = ['static void ' prefix funid '(' prec ' A[' num2str(n*m) '], ' prec ' b[' num2str(m) '], ' prec ' out[' num2str(n) '])' char(10) '{' char(10)];
+end
 if gendata.loopunrolling == 1
     if function_uses_structures
         for i=0:(m-1)

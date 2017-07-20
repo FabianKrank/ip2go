@@ -5,7 +5,7 @@ function output = gen_mtv(n,m,s1,s2)
 global gendata
 prec = gendata.prec;
 prefix = gendata.prefix;
-
+pointer=gendata.math_arg_use_pointer;
 funstr = [];
 
 output.stat = gen_stat_default_struct;
@@ -32,11 +32,22 @@ else
 end
 
 % Funktion-Kopf
-if function_uses_structures
+% if function_uses_structures
+if pointer
     funstr = ['static void ' prefix funid '(' prec ' *A, ' prec ' *b, ' prec ' *out)' char(10) '{' char(10)];
 else
-    funstr = ['static void ' prefix funid '(' prec ' *A, ' prec ' *b, ' prec ' *out)' char(10) '{' char(10)];
+    funstr = ['static void ' prefix funid '(' prec ' A[' num2str(n*m) '], ' prec ' b[' num2str(n) '], ' prec ' out[' num2str(m) '])' char(10) '{' char(10)];
+    
 end
+% else
+%     if pointer
+%         funstr = ['static void ' prefix funid '(' prec ' *A, ' prec ' *b, ' prec ' *out)' char(10) '{' char(10)];
+%     else
+%        funstr = ['static void ' prefix funid '(' prec ' *A, ' prec ' *b, ' prec ' *out)' char(10) '{' char(10)];
+%   
+%     end
+%     
+% end
 %funstr = ['static void ' prefix 'mtv_' num2str(n) '_' num2str(m) '(' prec ' *a, ' prec ' *b, ' prec ' *out)' char(10) '{' char(10)];
 
 if gendata.loopunrolling == 1

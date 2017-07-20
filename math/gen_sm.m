@@ -11,7 +11,7 @@ funstr = [];
 % Beschreibung
 
 % Funktion-Kopf
-funstr = ['static void ' prefix 'sm_' num2str(n) '_' num2str(m) '(' prec ' *a, ' prec ' *b, ' prec ' *out)' char(10) '{' char(10)];
+funstr = ['static void ' prefix 'sm_' num2str(n) '_' num2str(m) '(' prec ' a[1], ' prec ' b[' num2str(n*m) '], ' prec ' out[' num2str(n*m) '])' char(10) '{' char(10)];
 
 % Variablen-Deklaration
 funstr = [funstr '  int i;' char(10)];
