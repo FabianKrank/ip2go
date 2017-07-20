@@ -55,6 +55,15 @@ if function_uses_structures == 1
     end
 end
 
+%% Check special function calls
+switch( call )
+	case 'v_copy'
+		% Do not try to copy an empty vector
+		if dims{1} == 0
+			return;
+		end
+end 
+
 %% Funktionsaufruf erstellen und in Quellcode einfügen einfügen
 genstr = [genstr char(10) gendata.prefix funname];
 
