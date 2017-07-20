@@ -1,11 +1,12 @@
 function output = gen_vsum(n)
-% Generiert Code für eine elementweise Vektor Vektor Multiplikation
+% Generates code for the sum of all elements of a vector
 % out = sum(a)
 % Vektor a:     n x 1
 % Vektor out:   1 x 1
 global gendata
 prec = gendata.prec;
 prefix = gendata.prefix;
+pointer = gendata.math_arg_use_pointer;
 
 funstr = [];
 
@@ -14,7 +15,12 @@ output.stat = gen_stat_default_struct;
 funid = ['vsum_' num2str(n)];
 
 % Funktion-Kopf
-funstr = ['static void ' prefix funid '(' prec ' *a, ' prec ' *out)' char(10) '{' char(10)];
+if pointer
+	funstr = ['static void ' prefix funid '(' prec ' *a, ' prec ' *out)' char(10) '{' char(10)];
+else
+	funstr = ['static void ' prefix funid '(' prec ' a[' num2str(n) '], ' prec ' out[1])' char(10) '{' char(10)];
+end
+
 if gendata.loopunrolling == 1
     for i= 0:(n-1)
         funstr = [funstr char(10) '  out[0] = out[0] + a[' num2str(i) '];'];

@@ -1,10 +1,11 @@
 function output = gen_min()
-% Generiert Code für eine Skalar Vektor Multiplikation
+% Generates code for scalar argument min-operator
 % Skalar A: 1 x 1
-% Vector B: n x 1
+% Scalar B: 1 x 1
 global gendata
 prec = gendata.prec;
 prefix = gendata.prefix;
+pointer = gendata.math_arg_use_pointer;
 
 funstr = [];
 
@@ -13,7 +14,11 @@ output.stat = gen_stat_default_struct;
 funid = ['min'];
 
 % Funktion-Kopf
-funstr = ['static void ' prefix funid '(' prec ' *a, ' prec ' *b, ' prec ' *out)' char(10) '{' char(10)];
+if pointer
+	funstr = ['static void ' prefix funid '(' prec ' *a, ' prec ' *b, ' prec ' *out)' char(10) '{' char(10)];
+else
+	funstr = ['static void ' prefix funid '(' prec ' a[1], ' prec ' b[1], ' prec ' out[1])' char(10) '{' char(10)];
+end
 
 % Variablen-Deklaration
 %funstr = [funstr '  int i;' char(10)];

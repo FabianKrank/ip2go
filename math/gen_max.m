@@ -1,7 +1,7 @@
 function output = gen_max()
-% Generiert Code für eine Skalar Vektor Multiplikation
+% Generates code for scalar argument max-operator
 % Skalar A: 1 x 1
-% Vector B: n x 1
+% Scalar B: 1 x 1
 global gendata
 prec = gendata.prec;
 prefix = gendata.prefix;

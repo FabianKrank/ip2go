@@ -15,6 +15,7 @@ function output = gen_norm_inf(n,m)
 global gendata
 prec = gendata.prec;
 prefix = gendata.prefix;
+pointer = gendata.math_arg_use_pointer;
 
 funstr = [];
 
@@ -23,7 +24,11 @@ output.stat = gen_stat_default_struct;
 funid = ['norm_inf_' num2str(n) '_' num2str(m)];
 
 % Funktion-Kopf
-funstr = ['static void ' prefix funid '(' prec ' *A, ' prec ' *B, ' prec ' *out)' char(10) '{' char(10)];
+if pointer
+	funstr = ['static void ' prefix funid '(' prec ' *A, ' prec ' *B, ' prec ' *out)' char(10) '{' char(10)];
+else
+	funstr = ['static void ' prefix funid '(' prec ' A[' num2str(n*m) '], ' prec ' B[1], ' prec ' out[1])' char(10) '{' char(10)];
+end
 
 if gendata.loopunrolling == 1
     funstr = [funstr '  out[0] = B[0];' char(10)];

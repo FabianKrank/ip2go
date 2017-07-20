@@ -9,6 +9,7 @@ function output = gen_v_min(n)
 global gendata
 prec = gendata.prec;
 prefix = gendata.prefix;
+pointer = gendata.math_arg_use_pointer;
 
 funstr = [];
 
@@ -17,7 +18,11 @@ output.stat = gen_stat_default_struct;
 funid = ['v_min_' num2str(n)];
 
 % Funktion-Kopf
-funstr = ['static void ' prefix funid '(' prec ' *A, ' prec ' *B, ' prec ' *out)' char(10) '{' char(10)];
+if pointer
+	funstr = ['static void ' prefix funid '(' prec ' *A, ' prec ' *B, ' prec ' *out)' char(10) '{' char(10)];
+else
+	funstr = ['static void ' prefix funid '(' prec ' A[' num2str(n) '], ' prec ' B[1], ' prec ' out[1])' char(10) '{' char(10)];
+end
 
 % Variablen-Deklaration
 funstr = [funstr '  int i;' char(10)];
