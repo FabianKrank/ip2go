@@ -1,4 +1,4 @@
-function funstr = gen_wrap_var_in(vars)
+function funstr = gen_fpga_var_in(vars)
 %Diese Funktion generiert die Variablendeklarationen
 %% #############
 % # Changelog #
@@ -15,8 +15,6 @@ global gendata
 global pstruc
 
 K = gendata.dim.K;
-nx = gendata.dim.n_x;
-nu = gendata.dim.n_u;
 
 for i=1:length(vars)
     I2=0:K;
@@ -47,8 +45,8 @@ for i=1:length(vars)
         else
             dim2 = vars{i}.dim2;
         end
-        addc(['Zeitschritt ' num2str(k)])
-        addl(['dptr = ' gendata.prefix 'get_' vars{i}.name '(' num2str(k) ');'])
+
+        ind=mem_getindex([vars{i}.name  num2str(k) ]);
 
     end
 end

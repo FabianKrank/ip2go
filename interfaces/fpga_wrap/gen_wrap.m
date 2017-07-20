@@ -1,4 +1,4 @@
-function [] = gen_wrap(wrap_version)
+function [array_data] = gen_fpga()
 % Diese Funktion generiert den C-Code für ein Matlab-Interface für einen
 % mit gen_lqdocpip generierten Solver.
 % 
@@ -39,10 +39,6 @@ global genstr
 
 if isempty(gendata)
     error('Erst Codegenerator für Solver ausführen!');
-end
-
-if nargin<1
-   wrap_version=0; 
 end
 
 nx = gendata.dim.n_x;
@@ -98,6 +94,6 @@ end
 var_in = {Jvars{1:end} eqvars{1:end} ineqvars{1:end}};
 
 %% Quellcodegenerierung
-varinstr = gen_wrap_var_in(var_in);
+array_data = gen_fpga_var_in(var_in);
 
 end
