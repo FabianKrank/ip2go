@@ -342,7 +342,11 @@ addc('Variable für Diskretisierungsstellen')
 for i1=1:length(genstore.akt_index)
     if genstore.akt_index(i1)~=0
         data_dim=genstore.akt_index(i1)+1;
-        [initdata] = gen_fpga(data_dim);
+        if gendata.initialize_data
+            [initdata] = gen_fpga(data_dim);
+        else
+            initdata = [];
+        end
         addl(gen_var_single('arr_t',i1,genstore.akt_index(i1)+1,1,[],initdata)) 
     end
 end

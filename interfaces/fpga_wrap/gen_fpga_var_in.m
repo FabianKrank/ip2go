@@ -46,7 +46,7 @@ for i=1:length(vars)
             dim2 = vars{i}.dim2;
         end
 
-        ind=mem_getindex([vars{i}.name  num2str(k) ]);
+        ind=mem_getindex([vars{i}.name  num2str(k) ])+1;
         array_data(ind:(ind+dim1*dim2-1))= reshape(gendata.matrix_structures.(vars{i}.name){k+1},dim1*dim2,1);
     end
 end
