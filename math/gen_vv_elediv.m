@@ -7,7 +7,7 @@ function output = gen_vv_elediv(n)
 global gendata
 prec = gendata.prec;
 prefix = gendata.prefix;
-
+pointer=gendata.math_arg_use_pointer;
 funstr = [];
 
 output.stat = gen_stat_default_struct;
@@ -15,7 +15,11 @@ output.stat = gen_stat_default_struct;
 funid = ['vv_elediv_' num2str(n)];
 
 % Funktion-Kopf
-funstr = ['static void ' prefix funid '(' prec ' *a, ' prec ' *b, ' prec ' *out)' char(10) '{' char(10)];
+if pointer
+    funstr = ['static void ' prefix funid '(' prec ' *a, ' prec ' *b, ' prec ' *out)' char(10) '{' char(10)];
+else
+    funstr = ['static void ' prefix funid '(' prec ' a[' num2str(n) '], ' prec ' b[' num2str(n) '], ' prec ' out[' num2str(n) '])' char(10) '{' char(10)];
+end
 if gendata.loopunrolling == 1
     for i= 0:(n-1)
         funstr = [funstr char(10) '  if(b[' num2str(i) '] == 0){ ' prefix 'termcode = 8; ' prefix 'error_line = __LINE__; return;}'];

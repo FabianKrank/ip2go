@@ -5,6 +5,7 @@ function output = gen_m_copy(n,m)
 global gendata
 prec = gendata.prec;
 prefix = gendata.prefix;
+pointer=gendata.math_arg_use_pointer;
 
 funstr = [];
 
@@ -13,8 +14,11 @@ output.stat = gen_stat_default_struct;
 funid = ['m_copy_' num2str(n) '_' num2str(m)];
 
 % Funktion-Kopf
-funstr = ['static void ' prefix funid '(' prec ' *a, ' prec ' *out)' char(10) '{' char(10)];
-
+if pointer
+    funstr = ['static void ' prefix funid '(' prec ' *a, ' prec ' *out)' char(10) '{' char(10)];
+else
+    funstr = ['static void ' prefix funid '(' prec ' a[' num2str(n*m) '], ' prec ' out[' num2str(n*m) '])' char(10) '{' char(10)];
+end
 if gendata.loopunrolling == 1
     for i= 0:(n*m-1)
         funstr = [funstr char(10) '  out[' num2str(i) '] = a[' num2str(i) '];'];

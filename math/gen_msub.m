@@ -7,6 +7,7 @@ function output = gen_msub(n,m)
 global gendata
 prec = gendata.prec;
 prefix = gendata.prefix;
+pointer=gendata.math_arg_use_pointer;
 
 funstr = [];
 
@@ -15,8 +16,11 @@ output.stat = gen_stat_default_struct;
 funid = ['msub_' num2str(n) '_' num2str(m)];
 
 % Funktion-Kopf
-funstr = ['static void ' prefix funid '(' prec ' *A, ' prec ' *B, ' prec ' *out)' char(10) '{' char(10)];
-
+if pointer
+    funstr = ['static void ' prefix funid '(' prec ' *A, ' prec ' *B, ' prec ' *out)' char(10) '{' char(10)];
+else
+    funstr = ['static void ' prefix funid '(' prec ' A[' num2str(n*m) '], ' prec ' B[' num2str(n*m) '], ' prec ' out[' num2str(n*m) '])' char(10) '{' char(10)];
+end
 if gendata.loopunrolling == 1
     for i= 0:(n*m-1)
         funstr = [funstr char(10) '  out[' num2str(i) '] = A[' num2str(i) '] - B[' num2str(i) '];'];
