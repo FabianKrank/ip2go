@@ -26,12 +26,12 @@ end
 
 % cstr um tmax-Schnittstellen ergänzen
 genstr = cstr;
-addl(['double *' prefix 'get_time_max()'])
+addl([prec ' *' prefix 'get_time_max()'])
 addl('{')
 addl(['return &' prefix 'time_max;'])
 addl('}')
 addl('')
-addl(['void ' prefix 'set_time_max(double tmax)'])
+addl(['void ' prefix 'set_time_max(' prec ' tmax)'])
 addl('{')
 addl([prefix 'time_max = tmax;'])
 addl('}')
@@ -40,8 +40,8 @@ cstr = genstr;
 
 % hstr um tmax-Schnittstellen ergänzen
 genstr = hstr;
-addl(['double *' prefix 'get_time_max();'])
-addl(['void ' prefix 'set_time_max(double tmax);'])
+addl([prec ' *' prefix 'get_time_max();'])
+addl(['void ' prefix 'set_time_max(' prec ' tmax);'])
 hstr = genstr;
 
 % Funktion zum Aufruf der Arrayindizes erstellen

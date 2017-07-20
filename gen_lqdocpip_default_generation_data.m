@@ -72,5 +72,9 @@ generation_data.path_sfun           = '';
 % Speicherstruktur
 generation_data.mem_type=1;
 generation_data.simple_struct=0;
+
+% Simplify interface function
+generation_data.provide_get_interface = 1;
+generation_data.initialize_data = 0;
 end
 

@@ -1,6 +1,6 @@
 function [ funstr, timer_include ] = gen_lqdocpip_timer()
 % timer_start() initialisiert den timer
-% timer_end() liest den timer aus und gibt die Differenzzeit in double
+% timer_end() reads the timer value and returns the time difference with configured precision
 % zurück
 global gendata
 global genstr
@@ -9,6 +9,7 @@ genstr_save = [];
 timer_include = [];
 
 prefix = gendata.prefix;
+prec   = gendata.prec;
 
 genstr = [];
 
@@ -33,7 +34,10 @@ for ii = 1:length(gendata.timer)
         addc('  dSpace')
         addl('  #include "brtenv.h"')
         
-        
+    % none, create dummy timer
+    elseif strcmp(gendata.timer{ii},'none')
+        addl('#else')
+        addc('  No timer')
     % Sonst: Unbekannt --> Fehler
     else
         error(['Unbekannter Timertyp: ' gendata.timer{ii}]);
@@ -65,13 +69,17 @@ for ii = 1:length(gendata.timer)
         addl(['  QueryPerformanceFrequency(&' prefix 'tmp_frequency);'])
         addl(['  QueryPerformanceCounter(&' prefix 'tmp_counter);'])
 %         addl(['printf("Time: %i\n",tmp_frequency);'])
-        addl(['  ' prefix 'timer_start = (double) ' prefix 'tmp_counter.QuadPart/(double) ' prefix 'tmp_frequency.QuadPart;'])
+        addl(['  ' prefix 'timer_start = (' prec ') ' prefix 'tmp_counter.QuadPart/(' prec ') ' prefix 'tmp_frequency.QuadPart;'])
         
         % dSpace
     elseif strcmp(gendata.timer{ii},'dspace')
         addl([next_char 'defined(IP2GO_DS1103)'])
-        addl(['  ' prefix 'timer_start = (double) ds1103_timebase_fltread();'])
+        addl(['  ' prefix 'timer_start = (' prec ') ds1103_timebase_fltread();'])
         
+        % none
+    elseif strcmp(gendata.timer{ii},'none')
+        addl('#else')
+        addc('   do nothing');
         % Sonst: Unbekannt --> Fehler
     else
         error(['Unbekannter Timertyp: ' gendata.timer{ii}]);
@@ -88,7 +96,7 @@ addl('')
 addc('###################################################')
 addc('Diese Funktion gibt die Zeit seit Timerstart zurück')
 addc('###################################################')
-addl(['double ' prefix 'glqdocpip_timer_get()' char(10) '{'])
+addl([prec ' ' prefix 'glqdocpip_timer_get()' char(10) '{'])
 
 for ii = 1:length(gendata.timer)
     if ii == 1
@@ -103,12 +111,17 @@ for ii = 1:length(gendata.timer)
         addl(['  LARGE_INTEGER ' prefix 'tmp_counter, ' prefix 'tmp_frequency;'])
         addl(['  QueryPerformanceFrequency(&' prefix 'tmp_frequency);'])
         addl(['  QueryPerformanceCounter(&' prefix 'tmp_counter);'])
-        addl(['  return (double) ' prefix 'tmp_counter.QuadPart/(double) ' prefix 'tmp_frequency.QuadPart - ' prefix 'timer_start;'])
+        addl(['  return (' prec ') ' prefix 'tmp_counter.QuadPart/(' prec ') ' prefix 'tmp_frequency.QuadPart - ' prefix 'timer_start;'])
         
         % dSpace
     elseif strcmp(gendata.timer{ii},'dspace')
         addl([next_char 'defined(IP2GO_DS1103)'])
-        addl(['  return (double) ds1103_timebase_fltread()- ' prefix 'timer_start;'])
+        addl(['  return (' prec ') ds1103_timebase_fltread()- ' prefix 'timer_start;'])
+        
+        % none
+    elseif strcmp(gendata.timer{ii},'none')
+        addl('#else')
+        addl(['  return (' prec ')0.0;'])
         
         % Sonst: Unbekannt --> Fehler
     else

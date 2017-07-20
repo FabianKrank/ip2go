@@ -99,10 +99,10 @@ gendata.prec_out_mx = 'mxDOUBLE_CLASS';
 gendata.prec_in = 'double';
 
 if gendata.mem_type==2
-
-gen_var_st2();
-analyse_savestruct();
-
+    
+    gen_var_st2();
+    analyse_savestruct();
+    
 end
 
 % Maxima des jeweiligen Datentyps
@@ -121,53 +121,64 @@ end
 
 % Iterationem
 if ~isfield(gendata,'iter')
-     gendata.iter = num2cell(0:gendata.dim.K);  
-end    
-    
+    gendata.iter = num2cell(0:gendata.dim.K);
+end
+
 %% Variablen, für die ein Interface erstellt werden soll
 % &nok --> Variable kommt nur einmal vor (nicht für jedes k)
 % &int --> Variable hat Typ "int" und nicht wie in "prec" definiert
-inoutvars = {...
-    ... Optimierungsvariablen
-    'x' 'u' 's' 'p' 'y' 'nu' ...
-    ... Gütefunktion:
-    'Hxx' 'Hxu' 'Huu'  'Hss' ...
-    'f0x' 'f0u' 'f0s' ...
-    ... GNBs:
-    'fx'  'fu'  'f' ...
-    ... UGNBs:
-    'gx'  'gu'  'g' ...
-    ... Statistik
-    'stat_time&nok' 'stat_iter_ref&nok&int' ...
-    'stat_num_factor&nok&int' 'stat_num_solve&nok&int' 'stat_num_iter_ref&nok&int'...
-    ... Sonstiges
-    'iter&int&nok' 'termcode&int&nok'...
-    'error_line&nok&int' 'error_source&nok&int'...
-    'norm_d&nok' ...
-    };
-if gendata.debug == 1
-    inoutvars = {inoutvars{1:end} ...
-    ... Schrittvariablen
-    'dx'  'du' 'ds' 'dp' 'dy' 'dnu' ...    
-    ... rhs-Variablen
-    'rf0x' 'rf0u' 'rf0s' 'rf' 'rc' 'rk' 'rs'...
-    ... rrhs-Variablen
-    'rrf0x' 'rrf0u' 'rhsxs' 'yny' ...
-    ... Blockeleminations-Variablen
-    'Gxx' 'Gxu' 'Guu' 'Rux' 'Vxx' 'L'  'Gx'  'Gu'  'Vx'  'Ru' ...
-    ... Debug Aufruf 1:
-    'debug_dgap&nok' 'debug_phi&nok' 'debug_minphi&nok' ...
-    'debug_norm_r0&nok' 'debug_norm_r&nok' 'debug_norm_d&nok' ...
-    'debug_mu0&nok' 'debug_mu&nok' ...
-    ... Debug Aufruf 2:
-    'debug_sigma&nok' 'debug_mu_aff&nok' ...
-    'debug_alpha_max&nok' 'debug_mehrotra_alpha&nok' ...
-    };
+if gendata.provide_get_interface==0
+    inoutvars = {...
+        ... Optimierungsvariablen
+        'u'
+        ... Sonstiges
+        'termcode&int&nok'...
+        };
+else
+    inoutvars = {...
+        ... Optimierungsvariablen
+        'x' 'u' 's' 'p' 'y' 'nu' ...
+        ... Gütefunktion:
+        'Hxx' 'Hxu' 'Huu'  'Hss' ...
+        'f0x' 'f0u' 'f0s' ...
+        ... GNBs:
+        'fx'  'fu'  'f' ...
+        ... UGNBs:
+        'gx'  'gu'  'g' ...
+        ... Statistik
+        'stat_time&nok' 'stat_iter_ref&nok&int' ...
+        'stat_num_factor&nok&int' 'stat_num_solve&nok&int' 'stat_num_iter_ref&nok&int'...
+        ... Sonstiges
+        'iter&int&nok' 'termcode&int&nok'...
+        'error_line&nok&int' 'error_source&nok&int'...
+        'norm_d&nok' ...
+        };
+    
+    if gendata.debug == 1
+        inoutvars = {inoutvars{1:end} ...
+            ... Schrittvariablen
+            'dx'  'du' 'ds' 'dp' 'dy' 'dnu' ...
+            ... rhs-Variablen
+            'rf0x' 'rf0u' 'rf0s' 'rf' 'rc' 'rk' 'rs'...
+            ... rrhs-Variablen
+            'rrf0x' 'rrf0u' 'rhsxs' 'yny' ...
+            ... Blockeleminations-Variablen
+            'Gxx' 'Gxu' 'Guu' 'Rux' 'Vxx' 'L'  'Gx'  'Gu'  'Vx'  'Ru' ...
+            ... Debug Aufruf 1:
+            'debug_dgap&nok' 'debug_phi&nok' 'debug_minphi&nok' ...
+            'debug_norm_r0&nok' 'debug_norm_r&nok' 'debug_norm_d&nok' ...
+            'debug_mu0&nok' 'debug_mu&nok' ...
+            ... Debug Aufruf 2:
+            'debug_sigma&nok' 'debug_mu_aff&nok' ...
+            'debug_alpha_max&nok' 'debug_mehrotra_alpha&nok' ...
+            };
+    end
+    
 end
 
 %% Strukturen für Strukturausnutzung
 if isfield(gendata, 'use_structures') && gendata.use_structures == 1
-    cd(gendata.path_structures);
+%     cd(gendata.path_structures);
     matrix_structures = gendata.matrix_structures;
     
     gendata.structures = cell(0);
@@ -183,11 +194,11 @@ if isfield(gendata, 'use_structures') && gendata.use_structures == 1
     for i = 1:length(gendata.structures)
         gendata.structures{i}.sid = i;
     end
-    cd(gendata.path_orig);
+%     cd(gendata.path_orig);
 end
 
 %% Generierung Quellcode
-cd(gendata.path_algorithmus);
+% cd(gendata.path_algorithmus);
 
 disp(' ');
 disp('Quellcode wird generiert...');
@@ -298,7 +309,7 @@ gendata.str.c.define = gen_define(cdefine);
 gendata.str.c.init = gen_lqdocpip_init();
 gen_stat_section('init');
 gendata.str.c.main = gen_lqdocpip_main();
-gendata.str.h.main = ['double ' gendata.prefix 'glqdocpip_timer_get();' char(10) ...
+gendata.str.h.main = [gendata.prec ' ' gendata.prefix 'glqdocpip_timer_get();' char(10) ...
     'void ' gendata.prefix 'glqdocpip_timer_start();' char(10) ...
     'int ' gendata.prefix 'glqdocpip();'];
 
@@ -318,7 +329,7 @@ gendata.str.c.vars = gen_var_st();
 % Mathematische Funktionen (muss als letztes ausgeführt werden)
 gendata.str.c.mathfunctions = gen_functions();
 
-cd(gendata.path_orig);
+% cd(gendata.path_orig);
 
 %% Quellcode zusammenfügen
 % c-Datei
@@ -428,20 +439,20 @@ disp('Generierung fertig.');
 disp(['Es wurden ' num2str(length(strfind(cstr,char(10)))+1+length(strfind(hstr,char(10)))+1) ' Zeilen Quellcode erstellt.']);
 
 %% Quellcode in Datei schreiben: c-Datei
-cd(gendata.path_target);
-filename  = gendata.filename;
+% cd(gendata.path_target);
+filename  = fullfile(gendata.path_target, gendata.filename);
 fid = fopen([filename '.c'],'wt');
 fwrite(fid,cstr);
 fclose(fid);
 disp([filename '.c wurde erstellt.']);
 
 %% Quellcode in Datei schreiben: h-Datei
-filename  = gendata.filename;
+filename  = fullfile(gendata.path_target, gendata.filename);
 fid=fopen([filename '.h'],'wt');
 fwrite(fid,hstr);
 fclose(fid);
 disp([filename '.h wurde erstellt.']);
-cd(gendata.path_orig);
+% cd(gendata.path_orig);
 
 %% Statistik
 % Variablen

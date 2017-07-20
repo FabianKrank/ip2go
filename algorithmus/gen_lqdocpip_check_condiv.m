@@ -5,6 +5,7 @@ global gendata
 global genstr
 
 prefix = gendata.prefix;
+prec   = gendata.prec;
 
 genstr = [];
 
@@ -58,7 +59,7 @@ subt(tmp2);
 addl('')
 addc('Termcode 7 - calculation time limit exceeded')
 addl(['if(' prefix 'iter > 0){'])
-addl(['  if(' prefix 'glqdocpip_timer_get()*(double)' prefix 'iter/ (double) (' prefix 'iter + 1) > ' prefix 'time_max){'])
+addl(['  if(' prefix 'glqdocpip_timer_get()*(' prec ')' prefix 'iter/ (' prec ') (' prefix 'iter + 1) > ' prefix 'time_max){'])
 addl(['    ' prefix 'termcode = 7;'])
 addl('    return;')
 addl('  }')

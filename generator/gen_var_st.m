@@ -286,8 +286,8 @@ addl(gen_var_single('tc1_factor', 0, 1, 1, struct('no_k',1)))
 addl(gen_var_single('tc2_factor', 0, 1, 1, struct('no_k',1)))
 addl(gen_var_single('blowup_t_on', 0, 1, 1, struct('no_k',1, 'prec','int')))
 %% Zeiten
-addl(gen_var_single('timer_start', 0, 1, 1, struct('no_k',1, 'no_array',1, 'prec','double')))
-addl(gen_var_single('time_max', 0, 1, 1, struct('no_k',1, 'no_array',1, 'prec','double')))
+addl(gen_var_single('timer_start', 0, 1, 1, struct('no_k',1, 'no_array',1, 'prec',prec)))
+addl(gen_var_single('time_max', 0, 1, 1, struct('no_k',1, 'no_array',1, 'prec',prec)))
 
 %% Duality Gap
 addl('')
@@ -355,11 +355,15 @@ genstr = [];
 return
 end
 
-function varstr = gen_var_single(varname, index, dim1, dim2, attribute)
+function varstr = gen_var_single(varname, index, dim1, dim2, attribute, initdata)
 % Generiert den String zur Deklaration einer Variablen
 global gendata
 
 % Zusätzliche Eingabeparameter auswerten
+if ~exist('initdata','var')
+    initdata = [];
+end
+
 if exist('attribute','var')
     % Precision
     if isfield(attribute,'prec')
@@ -406,17 +410,35 @@ if dim2 == 0
     %warning([varname ': Dimension_2 = 0']);
 end
 
+% Error checking
+if( numel(initdata) ~= dim1*dim2 && ~isempty(initdata) )
+    error('Wrong initialization data element count. It is %d and should be %d.', numel(initdata), dim1*dim2 );
+end
+
 % no_k verarbeiten
 varname2=varname;
 if ~no_k
     varname2 = [varname num2str(index)];
 end
 
+if ~isempty(initdata)
+    datastr = sprintf( '%.16g', initdata(1));
+    if ~no_array 
+        if numel(initdata) > 1
+            datastr = [datastr sprintf(', %.16g', initdata(2:end))];
+        end
+        datastr = ['{ ' datastr ' }'];
+    end
+    datastr = [' = ' datastr];
+else
+    datastr = '';
+end
+
 if no_array
-    varstr = ['static ' prec ' ' gendata.prefix varname2 ';'];
+    varstr = ['static ' prec ' ' gendata.prefix varname2 datastr ';'];
     elements = 1;
 else
-    varstr = ['static ' prec ' ' gendata.prefix varname2 '[' num2str(dim1*dim2) '];'];
+    varstr = ['static ' prec ' ' gendata.prefix varname2 '[' num2str(dim1*dim2) ']' datastr ';'];
     elements = dim1*dim2;
 end
 
