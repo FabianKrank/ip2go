@@ -6,6 +6,7 @@ function output = gen_mtd(n,m,s1,s2)
 global gendata
 prec = gendata.prec;
 prefix = gendata.prefix;
+pointer=gendata.math_arg_use_pointer;
 
 funstr = [];
 
@@ -35,9 +36,11 @@ else
     funid = ['mtd_' num2str(n) '_' num2str(m)];
     %funstr = ['static void ' prefix 'mtd_' num2str(n) '_' num2str(m) '(' prec ' *A, ' prec ' *B, ' prec ' *out)' char(10) '{' char(10)];
 end
-
-funstr = ['static void ' prefix funid '(' prec ' *A, ' prec ' *B, ' prec ' *out)' char(10) '{' char(10)];
-
+if pointer
+    funstr = ['static void ' prefix funid '(' prec ' *A, ' prec ' *B, ' prec ' *out)' char(10) '{' char(10)];
+else
+    funstr = ['static void ' prefix funid '(' prec ' A[' num2str(n*m) '], ' prec ' B[' num2str(n*n) '], ' prec ' out[' num2str(n*m) '])' char(10) '{' char(10)];
+end
 if gendata.loopunrolling == 1
     if function_uses_structures
         for i=0:(n-1)
