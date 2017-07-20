@@ -244,7 +244,7 @@ varinstr = [];
 varoutstr = [];
 
 path_orig = pwd;
-cd(gendata.path_algorithmus);
+%cd(gendata.path_algorithmus);
 
 includes = {'mex.h' [gendata.name '_glqdocpip.h']};
 
@@ -299,14 +299,14 @@ addl('}')
 str = [genstr char(10)];
 genstr = [];
 
-cd(path_orig);
+%cd(path_orig);
 
 %% Quellcode in Datei schreiben: c-Datei
-cd(gendata.path_target);
-fid = fopen([gendata.name '_wrap.c'],'wt');
+%cd(gendata.path_target);
+fid = fopen(fullfile(gendata.path_target),[gendata.name '_wrap.c']),'wt');
 fwrite(fid,str);
 fclose(fid);
 disp([gendata.name '_wrap.c wurde erstellt.']);
-cd(gendata.path_orig);
+%cd(gendata.path_orig);
 
 end
