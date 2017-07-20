@@ -303,7 +303,7 @@ genstr = [];
 
 %% Quellcode in Datei schreiben: c-Datei
 %cd(gendata.path_target);
-fid = fopen(fullfile(gendata.path_target),[gendata.name '_wrap.c']),'wt');
+fid = fopen(fullfile(gendata.path_target,[gendata.name '_wrap.c']),'wt');
 fwrite(fid,str);
 fclose(fid);
 disp([gendata.name '_wrap.c wurde erstellt.']);
