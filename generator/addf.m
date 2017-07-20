@@ -61,7 +61,12 @@ switch( call )
 		% Do not try to copy an empty vector
 		if dims{1} == 0
 			return;
-		end
+        end
+    case 'm_copy'
+        % Do not try to copy an empty matrix
+		if dims{1} == 0 || dims{2} == 0
+			return;
+        end
 end 
 
 %% Funktionsaufruf erstellen und in Quellcode einfügen einfügen
