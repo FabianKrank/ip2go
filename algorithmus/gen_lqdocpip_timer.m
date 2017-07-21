@@ -23,13 +23,13 @@ for ii = 1:length(gendata.timer)
     
     % Windows
     if strcmp(gendata.timer{ii},'windows')
-        addl([next_char 'defined(__WIN32__) || defined(WIN32)'])
+        addl([next_char 'defined(IP2GO_WIN)'])
         addc('  Windows')
         addl('  #include "windows.h"')
         
     % dSpace
     elseif strcmp(gendata.timer{ii},'dspace')
-        addl([next_char 'defined(_DS1103)'])
+        addl([next_char 'defined(IP2GO_DS1103)'])
         addc('  dSpace')
         addl('  #include "brtenv.h"')
         
@@ -60,7 +60,7 @@ for ii = 1:length(gendata.timer)
     
     % Windows
     if strcmp(gendata.timer{ii},'windows')
-        addl([next_char 'defined(__WIN32__) || defined(WIN32)'])
+        addl([next_char 'defined(IP2GO_WIN)'])
         addl(['  LARGE_INTEGER ' prefix 'tmp_counter, ' prefix 'tmp_frequency;'])
         addl(['  QueryPerformanceFrequency(&' prefix 'tmp_frequency);'])
         addl(['  QueryPerformanceCounter(&' prefix 'tmp_counter);'])
@@ -69,7 +69,7 @@ for ii = 1:length(gendata.timer)
         
         % dSpace
     elseif strcmp(gendata.timer{ii},'dspace')
-        addl([next_char 'defined(_DS1103)'])
+        addl([next_char 'defined(IP2GO_DS1103)'])
         addl(['  ' prefix 'timer_start = (double) ds1103_timebase_fltread();'])
         
         % Sonst: Unbekannt --> Fehler
@@ -99,7 +99,7 @@ for ii = 1:length(gendata.timer)
     
     % Windows
     if strcmp(gendata.timer{ii},'windows')
-        addl([next_char 'defined(__WIN32__) || defined(WIN32)'])
+        addl([next_char 'defined(IP2GO_WIN)'])
         addl(['  LARGE_INTEGER ' prefix 'tmp_counter, ' prefix 'tmp_frequency;'])
         addl(['  QueryPerformanceFrequency(&' prefix 'tmp_frequency);'])
         addl(['  QueryPerformanceCounter(&' prefix 'tmp_counter);'])
@@ -107,7 +107,7 @@ for ii = 1:length(gendata.timer)
         
         % dSpace
     elseif strcmp(gendata.timer{ii},'dspace')
-        addl([next_char 'defined(_DS1103)'])
+        addl([next_char 'defined(IP2GO_DS1103)'])
         addl(['  return (double) ds1103_timebase_fltread()- ' prefix 'timer_start;'])
         
         % Sonst: Unbekannt --> Fehler

@@ -20,9 +20,12 @@ function [] = gen_lqdocpip(generation_data)
 % # Changelog #
 % #############
 %
-% DD.MM.YYYY (Autor):
-%   - Bsp (Änderung)
-
+% 22.11.16 Annika Mayer (annika.mayer@isys.uni-stuttgart.de):
+%   - Platformdefinition über eigene Definitionsparameter z.B.
+%   "IP2GO_DS1103", da die Platformparameter nicht von allen
+%   Compilern gesetzt werden.
+%   Wenn Timerfunktion nicht korrekt funktioniert, steigt Solver mit Termcode 7
+%   Zeitlimit überschritten aus
 global gendata;
 
 gendata = generation_data;
@@ -203,6 +206,15 @@ gen_stat_init();
 cinclude = {'float.h' 'math.h'};
 hinclude = {};
 
+cdefine={};
+if strcmp(gendata.platform,'WIN')
+  cdefine={'IP2GO_WIN'};
+elseif strcmp(gendata.platform ,'DS1103')
+  cdefine={'IP2GO_DS1103'};
+end
+  
+
+
 gendata.functions = [];
 gendata.tmps = [];
 
@@ -284,6 +296,9 @@ gen_stat_section('starting_point');
 gendata.str.c.include = gen_include(cinclude);
 gendata.str.h.include = gen_include(hinclude);
 
+% Defines
+gendata.str.c.define = gen_define(cdefine);
+
 % Schnittstellen
 [gendata.str.c.inputoutput, gendata.str.h.inputoutput] = gen_get_pointers(inoutvars);
 
@@ -321,7 +336,11 @@ cstr = [cstr '/* ' gendata.filename '.c */' char(10)];
 cstr = [cstr '/* Generiert: ' datestr(now) ' */' char(10) char(10) char(10)];
 % Include
 cstr = [cstr gendata.str.c.include char(10)];
+% Define Platform
+cstr = [cstr char(10) gendata.str.c.define char(10)];
+% Include Timer
 cstr = [cstr gendata.str.c.include_timer char(10) char(10)];
+
 % Globale Variablen
 cstr = [cstr gendata.str.c.vars char(10) char(10)];
 % Input / Output
@@ -401,8 +420,6 @@ cstr = [cstr char(10)];
 hstr = [];
 % Include
 hstr = [hstr gendata.str.h.include];
-% Define
-%hstr = [hstr char(10) gendata.str.h.define char(10)];
 % Input / Output
 hstr = [hstr char(10) char(10) gendata.str.h.inputoutput];
 % Funktion: Main
