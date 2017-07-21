@@ -442,6 +442,12 @@ disp(['Es wurden ' num2str(length(strfind(cstr,char(10)))+1+length(strfind(hstr,
 
 %% Quellcode in Datei schreiben: c-Datei
 % cd(gendata.path_target);
+if ~exist( gendata.path_target, 'dir')
+    fprintf('Trying to create build folder "%s" as it doesn''t exist...\n', gendata.path_target);
+    if ~mkdir( gendata.path_target )
+        error('Error creating build folder "%s".', gendata.path_target);
+    end
+end
 filename  = fullfile(gendata.path_target, gendata.filename);
 fid = fopen([filename '.c'],'wt');
 fwrite(fid,cstr);
