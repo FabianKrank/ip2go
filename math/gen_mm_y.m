@@ -1,5 +1,6 @@
 function output = gen_mm_y(n,m,p,s1,s2)
-% Generiert Code für eine Matrix Matrix Multiplikation
+% Generiert Code für eine Matrix Matrix Multiplikation, deren Ergebniss
+% eine symmetrische Matrix darstellt (wird bei Loopunrolling ausgenutzt)
 % Matrix A: n x m
 % Matrix B: m x p
 global gendata

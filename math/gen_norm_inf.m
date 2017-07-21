@@ -10,6 +10,8 @@ function output = gen_norm_inf(n,m)
 % in einer MATRIX zu übergeben (bzw. das Ergebnis ist unbrauchbar)
 % Bei VEKTOREN möglich.
 %
+% annika.mayer@isys.uni-stuttgart.de 05.12.16
+%   - Zeile 33, Korrektur out[0]=-A[], Minus hinzugefügt
 global gendata
 prec = gendata.prec;
 prefix = gendata.prefix;
@@ -28,7 +30,7 @@ if gendata.loopunrolling == 1
     output.stat.copy = output.stat.copy + 1;
     for i=0:(n*m-1)
         funstr = [funstr char(10) '  if (A[' num2str(i) '] > out[0]) out[0] = A[' num2str(i) '];'];
-        funstr = [funstr char(10) '  if (-A[' num2str(i) '] > out[0]) out[0] = A[' num2str(i) '];'];
+        funstr = [funstr char(10) '  if (-A[' num2str(i) '] > out[0]) out[0] = -A[' num2str(i) '];'];
         output.stat.copy = output.stat.copy + 1;
         output.stat.if = output.stat.if + 1;
     end
