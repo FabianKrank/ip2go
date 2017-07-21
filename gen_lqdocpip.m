@@ -206,7 +206,7 @@ disp('Quellcode wird generiert...');
 gen_stat_init();
 
 
-cinclude = {'float.h' 'math.h'};
+cinclude = {'float.h' 'math.h' [gendata.filename '.h']};
 hinclude = {};
 
 cdefine={};
@@ -214,6 +214,8 @@ if strcmp(gendata.platform,'WIN')
   cdefine={'IP2GO_WIN'};
 elseif strcmp(gendata.platform ,'DS1103')
   cdefine={'IP2GO_DS1103'};
+elseif strcmp(lower(gendata.platform), 'xilinx')
+	cdefine={'IP2GO_XILINX'};
 end
   
 
