@@ -14,11 +14,17 @@ nu = gendata.dim.n_u;
 
 %Funktionskopf
 addl(['static void ' prefix 'glqdocpip_dereduce()' char(10) '{'])
-
+if gendata.mem_type==2
+    addl('  int i1;');
+end
 % Fehlerquelle: DEREDUCE
 addl([prefix 'error_source = 4;'])
 
-for k=0:1:K
+ k=0;
+ i1=1;
+ while k<K+1
+     [k,kstr]=additer(k,i1);
+%for k=0:K
     n_c = gendata.dim.n_c(k+1);
     n_s = gendata.dim.n_s(k+1);
     
@@ -127,7 +133,8 @@ for k=0:1:K
     
     
     
-    
+     k=additer_next(k,i1);
+     i1=i1+1;
 end
 
 % Fehlerquelle zurücksetzen

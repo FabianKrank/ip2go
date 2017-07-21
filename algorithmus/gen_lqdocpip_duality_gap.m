@@ -17,7 +17,9 @@ addc('###########################################')
 addc('Diese Funktion berechnet die Dualitätslücke')
 addc('###########################################')
 addl(['static void ' prefix 'glqdocpip_duality_gap()' char(10) '{'])
-
+if gendata.mem_type==2
+    addl('  int i1;');
+end
 % Init
 addf('v_init0',1,'dgap')
 
@@ -26,7 +28,10 @@ tmpu = addt(nu,1);
 tmp  = addt(1,1);
 
 % Schleife über alle Zeitschritt
-for k=0:K
+k=0;
+i1=1;
+while k<K+1
+    [k,kstr]=additer(k,i1);
     n_c = gendata.dim.n_c(k+1);
     n_s = gendata.dim.n_s(k+1);
     
@@ -89,6 +94,8 @@ for k=0:K
         addf('vtv',n_c,['g' kstr],['y' kstr],tmp)
         addf('vsub',1,'dgap',tmp,'dgap')
     end
+    k=additer_next(k,i1);
+    i1=i1+1;
 end
 
 subt(tmpx)

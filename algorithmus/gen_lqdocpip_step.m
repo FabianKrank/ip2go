@@ -17,11 +17,17 @@ addc('######################################')
 addc('Diese Funktion führt einen Schritt aus')
 addc('######################################')
 addl(['static void ' prefix 'glqdocpip_step()' char(10) '{'])
-
+if gendata.mem_type==2
+    addl('  int i1;');
+end
 % var = var + mehrotra_alpha * dvar
 
 % Schleife über alle Zeitschritt
-for k=0:K
+ k=0;
+ i1=1;
+ while k<K+1
+     [k,kstr]=additer(k,i1);
+%for k=0:K
     kstr = num2str(k);
     n_c = gendata.dim.n_c(k+1);
     n_s = gendata.dim.n_s(k+1);
@@ -35,6 +41,8 @@ for k=0:K
         addf('sv',n_c+n_s,'mehrotra_alpha',['dy' kstr],['y' kstr])
         addf('sv',n_c+n_s,'mehrotra_alpha',['dnu' kstr],['nu' kstr])
     end
+     k=additer_next(k,i1);
+     i1=i1+1;
 end
 
 %Funktionsende

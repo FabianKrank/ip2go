@@ -14,8 +14,14 @@ nu = gendata.dim.n_u;
 
 %Funktionskopf
 addl(['static void ' prefix 'glqdocpip_rhs_affine()' char(10) '{'])
-
-for k=0:K
+if gendata.mem_type==2
+    addl('  int i1;');
+end
+  k=0;
+  i1=1;
+while k<K+1
+     [k,kstr]=additer(k,i1);
+%for k=0:K
     n_c = gendata.dim.n_c(k+1);
     n_s = gendata.dim.n_s(k+1);
     addc(['Zeitschritt ' num2str(k)])
@@ -93,6 +99,8 @@ for k=0:K
         addc('rk')
         addf('vv_elemult',n_c+n_s,['y' kstr],['nu' kstr],['rk' kstr])
     end
+      k=additer_next(k,i1);
+      i1=i1+1;
 end
 
 %Funktionsende

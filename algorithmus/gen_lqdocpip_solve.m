@@ -15,6 +15,9 @@ nu = gendata.dim.n_u;
 
 %Funktionskopf
 addl(['static void ' prefix 'glqdocpip_solve()' char(10) '{'])
+if gendata.mem_type==2
+    addl('  int i1;');
+end
 % Fehlerquelle: SOLVE
 addl([prefix 'error_source = 2;'])
 % Statistik
@@ -24,7 +27,11 @@ addl([prefix 'stat_num_solve++;'])
 addc('Solve: Rückwärtsiteration')
 
 % Zeitschritte K bis 0
-for k=K:-1:0
+%for k=K:-1:0
+k=K;
+i1=length(gendata.iter);
+while k>=0
+    [k,kstr]=additer(k,i1,1);
     kstr = num2str(k);
     addc(['Zeitschritt ' kstr])
     
@@ -55,14 +62,19 @@ for k=K:-1:0
     addf('mv',nx,nu,['Gxu' kstr],['Ru' kstr],tmpstr)
     addf('vsub',nx,['Gx' kstr],tmpstr,['Vx' kstr])
     subt(tmpstr);
+    k=additer_next(k,i1,1);
+    i1=i1-1;
 end
 
 % Vorwärtsiteration
 addc('Solve: Vorwärtsiteration')
 addc('dx0')
 addf('v_copy',nx,['rf0'],['dx0'])
-
-for k=0:K
+k=0;
+i1=1;
+while k<K+1
+    [k,kstr]=additer(k,i1);
+%for k=0:K
     kstr = num2str(k);
     addc(['Zeitschritt ' kstr])
     
@@ -84,7 +96,10 @@ for k=0:K
         addf('mv',nx,nx,['fx' kstr],['dx' kstr],['dx' num2str(k+1)],get_sbyname('fx',k),get_sbyname('full_vector_nx'))
         addf('mv',nx,nu,['fu' kstr],['du' kstr],['dx' num2str(k+1)],get_sbyname('fu',k),get_sbyname('full_vector_nu'))
     end
+    k=additer_next(k,i1);
+    i1=i1+1;
 end
+
 
 % Fehlerquelle zurücksetzen
 addl([prefix 'error_source = 0;'])

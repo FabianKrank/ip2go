@@ -17,12 +17,17 @@ addc('###########################################################')
 addc('Diese Funktion berechnet die Unendlichnorm der H**-Matrizen')
 addc('###########################################################')
 addl(['static void ' prefix 'glqdocpip_calc_norm_h()' char(10) '{'])
-
+if gendata.mem_type==2
+    addl('  int i1;');
+end
 % Init
 addf('v_init0',1,'norm_h')
 
 % Schleife über alle Zeitschritt
-for k=0:K
+k=0;
+i1=1;
+while k<K+1
+        [k,kstr]=additer(k,i1);
     n_c = gendata.dim.n_c(k+1);
     n_s = gendata.dim.n_s(k+1);
     kstr = num2str(k);
@@ -34,6 +39,8 @@ for k=0:K
     if n_s > 0
         addf('norm_inf',n_s,n_s,['Hss' kstr],'norm_h','norm_h')
     end
+    k=additer_next(k,i1);
+    i1=i1+1;
 end
 
 

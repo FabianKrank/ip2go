@@ -18,10 +18,15 @@ addc('Diese Funktion berechnet den Startpunkt')
 addc(['          Startpunktmethode: ' num2str(gendata.starting_point_method) '         '])
 addc('#######################################')
 addl(['static void ' prefix 'glqdocpip_starting_point()' char(10) '{'])
-
+if gendata.mem_type==2
+    addl('  int i1;');
+end
 % Pre Init
 addc('Very Cold Start')
-for k=0:K
+k=0;
+i1=1;
+while k<K+1
+    [k,kstr]=additer(k,i1);
     n_c = gendata.dim.n_c(k+1);
     n_s = gendata.dim.n_s(k+1);
     kstr = num2str(k);
@@ -39,6 +44,8 @@ for k=0:K
         addf('v_init1',n_c+n_s,['y' kstr])
         addf('v_init1',n_c+n_s,['nu' kstr])
     end
+    k=additer_next(k,i1);
+    i1=i1+1;
 end
 
 if gendata.starting_point_method == 0
@@ -59,7 +66,10 @@ elseif gendata.starting_point_method == 5
     addl([prefix 'glqdocpip_dereduce();'])
     addl(['if(' prefix 'termcode > -1){return;}'])
     
-    for k=0:K
+ k=0;
+i1=1;
+while k<K+1
+    [k,kstr]=additer(k,i1);
         kstr = num2str(k);
         n_s = gendata.dim.n_s(k+1);
         n_c = gendata.dim.n_c(k+1);
@@ -83,7 +93,9 @@ elseif gendata.starting_point_method == 5
             addf('vadd',n_c+n_s,['y' kstr], ['dy' kstr], ['dy' kstr])
             addf('vadd',n_c+n_s,['nu' kstr],['dnu' kstr],['dnu' kstr])
         end
-    end
+    k=additer_next(k,i1);
+    i1=i1+1;
+end
     
     addc('Init delta_y and delta_nu')
     addf('v_init0',1,'starting_point_delta_y')
@@ -92,7 +104,12 @@ elseif gendata.starting_point_method == 5
     tmp_m15 = addt(1);
     tmpmax = addt(1);
     addl([prefix tmp_m15 '[0] = -1.5;'])
-    for k = 0:K
+    %for k = 0:K
+    
+ k=0;
+i1=1;
+while k<K+1
+    [k,kstr]=additer(k,i1);    
         kstr = num2str(k);
         n_s = gendata.dim.n_s(k+1);
         n_c = gendata.dim.n_c(k+1);
@@ -108,7 +125,9 @@ elseif gendata.starting_point_method == 5
             addf('vv_elemult',1,tmpmax,tmp_m15,tmpmax)
             addf('max',tmpmax,'starting_point_delta_nu','starting_point_delta_nu')
         end
-    end
+    k=additer_next(k,i1);
+    i1=i1+1;
+end
     subt(tmp_m15);
     subt(tmpmax);
 
@@ -117,7 +136,10 @@ elseif gendata.starting_point_method == 5
     addf('v_init0',1,'starting_point_sum')
     addf('v_init0',1,'starting_point_sum_y')
     addf('v_init0',1,'starting_point_sum_nu')
-    for k = 0:K
+k=0;
+i1=1;
+while k<K+1
+    [k,kstr]=additer(k,i1);
         kstr = num2str(k);
         n_s = gendata.dim.n_s(k+1);
         n_c = gendata.dim.n_c(k+1);
@@ -148,6 +170,8 @@ elseif gendata.starting_point_method == 5
             subt(tmp_nu);
             subt(tmp_nu2);
         end
+    k=additer_next(k,i1);
+    i1=i1+1;
     end
     
     % ACHTUNG: y und nu umgekehrt!!
@@ -167,8 +191,10 @@ elseif gendata.starting_point_method == 5
     subt(tmp);  
     
     % y und nu bestimmen
-    
-    for k=0:K
+k=0;
+i1=1;
+while k<K+1
+    [k,kstr]=additer(k,i1);
         n_s = gendata.dim.n_s(k+1);
         n_c = gendata.dim.n_c(k+1);
         kstr = num2str(k);
@@ -189,6 +215,8 @@ elseif gendata.starting_point_method == 5
             subt(tmp);
             subt(tmp2);
         end
+         k=additer_next(k,i1);
+    i1=i1+1;
     end
     
     %addp('starting_point_delta_y')

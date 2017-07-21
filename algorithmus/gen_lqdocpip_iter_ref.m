@@ -17,7 +17,9 @@ addc('######################################################')
 addc('Diese Funktion berechnet führt die Nachiteration durch')
 addc('######################################################')
 addl(['static void ' prefix 'glqdocpip_iter_ref()' char(10) '{'])
-
+if gendata.mem_type==2
+    addl('  int i1;');
+end
 % Iter_ref Bedingung?
 addl(['if(' prefix 'iter_ref == 1){'])
 
@@ -28,7 +30,11 @@ addl([prefix 'stat_num_iter_ref++;'])
 addl([prefix 'stat_iter_ref[' prefix 'iter] = 1;'])
 
 addc('Lösung sichern')
-for k=0:K
+ k=0;
+ i1=1;
+ while k<K+1
+    [k,kstr]=additer(k,i1);
+%for k=0:K
     kstr = num2str(k);
     n_s = gendata.dim.n_s(k+1);
     n_c = gendata.dim.n_c(k+1);
@@ -40,10 +46,17 @@ for k=0:K
     addf('v_copy',nx,['dp' kstr],['dp_ir' kstr])
     addf('v_copy',n_c+n_s,['dy' kstr],['dy_ir' kstr])
     addf('v_copy',n_c+n_s,['dnu' kstr],['dnu_ir' kstr])
-end
+     k=additer_next(k,i1);
+    i1=i1+1;
+ end
 
 addc('rhs sichern')
-for k=0:K
+ k=0;
+ i1=1;
+while k<K+1
+[k,kstr]=additer(k,i1);
+%for k=0:K
+    
     kstr = num2str(k);
     n_s = gendata.dim.n_s(k+1);
     n_c = gendata.dim.n_c(k+1);
@@ -56,6 +69,8 @@ for k=0:K
     addf('v_copy',n_c+n_s,['rc' kstr],['rc_ir' kstr])
     addf('v_copy',n_s,['rs' kstr],['rs_ir' kstr])
     addf('v_copy',n_c+n_s,['rk' kstr],['rk_ir' kstr])
+     k=additer_next(k,i1);
+     i1=i1+1;
 end
 
 addc('Residuum berechnen')
@@ -71,7 +86,11 @@ addl([prefix 'glqdocpip_dereduce();'])
 addl(['if(' prefix 'termcode > -1){return;}'])
 
 addc('Lösung aktualisieren')
-for k=0:K
+ k=0;
+ i1=1;
+ while k<K+1
+     [k,kstr]=additer(k,i1);
+%for k=0:K
     kstr = num2str(k);
     n_s = gendata.dim.n_s(k+1);
     n_c = gendata.dim.n_c(k+1);
@@ -83,10 +102,16 @@ for k=0:K
     addf('vadd',nx,['dp_ir' kstr],['dp' kstr],['dp' kstr])
     addf('vadd',n_c+n_s,['dy_ir' kstr],['dy' kstr],['dy' kstr])
     addf('vadd',n_c+n_s,['dnu_ir' kstr],['dnu' kstr],['dnu' kstr])
+     k=additer_next(k,i1);
+     i1=i1+1;
 end
   
 addc('rhs wiederherstellen')
-for k=0:K
+ k=0;
+ i1=1;
+ while k<K+1
+     [k,kstr]=additer(k,i1);
+%for k=0:K
     kstr = num2str(k);
     n_s = gendata.dim.n_s(k+1);
     n_c = gendata.dim.n_c(k+1);
@@ -99,6 +124,8 @@ for k=0:K
     addf('v_copy',n_c+n_s,['rc_ir' kstr],['rc' kstr])
     addf('v_copy',n_s,['rs_ir' kstr],['rs' kstr])
     addf('v_copy',n_c+n_s,['rk_ir' kstr],['rk' kstr])
+     k=additer_next(k,i1);
+     i1=i1+1;
 end
 
 % Ende iter_ref Bedingung

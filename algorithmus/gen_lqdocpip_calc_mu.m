@@ -17,12 +17,17 @@ addc('###########################')
 addc('Diese Funktion berechnet mu')
 addc('###########################')
 addl(['static void ' prefix 'glqdocpip_calc_mu()' char(10) '{'])
-
+if gendata.mem_type==2
+    addl('  int i1;');
+end
 addf('v_init0',1,'mu')
 addc('mu = mu + y*nu')
 
 % Schleife über alle Zeitschritt
-for k=0:K
+k=0;
+i1=1;
+while k<K+1
+    [k,kstr]=additer(k,i1);
     n_c = gendata.dim.n_c(k+1);
     n_s = gendata.dim.n_s(k+1);
     kstr = num2str(k);
@@ -31,7 +36,10 @@ for k=0:K
     if n_c > 0
         addf('vtv',n_c+n_s,['y' kstr],['nu' kstr],'mu')
     end
+    k=additer_next(k,i1);
+    i1=i1+1;
 end
+
 %mu_pl /= m_ineq
 addf('vv_elediv',1,'mu','m_ineq','mu')
 

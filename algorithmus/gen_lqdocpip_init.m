@@ -79,6 +79,9 @@ addl([prefix 'tc1_factor[0] = ' num2str(gendata.parameter.termcode_1_factor) ';'
 % Termcode2 Faktor
 addc('termcode 2 factor')
 addl([prefix 'tc2_factor[0] = ' num2str(gendata.parameter.termcode_2_factor) ';'])
+% Termcode2 Faktor
+addc('Blow up termination on if iterative refinement')
+addl([prefix 'blowup_t_on[0] = ' num2str(gendata.parameter.blowup_termination_on) ';'])
 % Time Limit
 addc('tmax')
 addl([prefix 'time_max = ' num2str(gendata.parameter.tmax) ';'])

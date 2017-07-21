@@ -17,7 +17,9 @@ addc('#############################################################')
 addc('Diese Funktion berechnet die Unendlichnorm der rechten Seiten')
 addc('#############################################################')
 addl(['static void ' prefix 'glqdocpip_calc_norm_r()' char(10) '{'])
-
+if gendata.mem_type==2
+    addl('  int i1;');
+end
 % norm_r_prev
 addc('norm_r_prev bestimmen')
 addl(['if(' prefix 'iter > 0){'])
@@ -28,7 +30,11 @@ addl('}')
 addf('v_init0',1,'norm_r')
 
 % Schleife über alle Zeitschritt
-for k=0:K
+k=0;
+i1=1;
+while k<K+1
+    
+    [k,kstr]=additer(k,i1);
     n_c = gendata.dim.n_c(k+1);
     n_s = gendata.dim.n_s(k+1);
     kstr = num2str(k);
@@ -56,6 +62,8 @@ for k=0:K
         addc('Aus Komplementaritätsbedingung')
         addf('norm_inf',n_c+n_s,1,['rk' kstr],'norm_r','norm_r')
     end
+    k=additer_next(k,i1);
+    i1=i1+1;
 end
 
 % norm_r0

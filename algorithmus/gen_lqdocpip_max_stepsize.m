@@ -17,6 +17,9 @@ addc('bei der y und nu noch positiv bleiben')
 addc('###########################################################')
 addl(['static void ' prefix 'glqdocpip_max_stepsize()' char(10) '{'])
 addl('int i;')
+if gendata.mem_type==2
+    addl('  int i1;');
+end
 addl('')
 % alpha_max und alpha_tmp initialisieren
 if strcmp(gendata.prec,'float')
@@ -29,9 +32,12 @@ end
 
 addl([prefix 'alpha_tmp[0] = 0;'])
 addl('')
-
-% Schleife über alle Zeitschritte
-for k=0:K
+%for k=0:K
+ %Schleife über alle Zeitschritte
+ k=0;
+ i1=1;
+ while k<K+1
+     [k,kstr]=additer(k,i1);
     n_c = gendata.dim.n_c(k+1);
     n_s = gendata.dim.n_s(k+1);
     addc(['Zeitschritt ' num2str(k)])
@@ -42,7 +48,7 @@ for k=0:K
         addl(['for(i=0;i<' num2str(n_c+n_s) ';i++)'])
         addl('{')
         addc('dy-check')
-        addl(['if( ' prefix 'dy' kstr '[i] < 0)'])
+        addl(['if( ' prefix assign_mem(['dy' kstr '[i]']) '< 0)'])
         addl('{')
         addf('vv_elediv', 1, ['y' kstr '[i]'], ['dy' kstr '[i]'], 'alpha_tmp')
         addl(['if( *' prefix 'alpha_tmp > *' prefix 'alpha_max )'])
@@ -57,7 +63,7 @@ for k=0:K
         addl('}')
         addl('}')
         addc('dnu-check')
-        addl(['if( ' prefix 'dnu' kstr '[i] < 0)'])
+        addl(['if( ', prefix, assign_mem(['dnu' kstr '[i]']), ' < 0)'])
         addl('{')
         addf('vv_elediv', 1, ['nu' kstr '[i]'], ['dnu' kstr '[i]'], 'alpha_tmp')
         addl(['if( *' prefix 'alpha_tmp > *' prefix 'alpha_max )'])
@@ -73,6 +79,9 @@ for k=0:K
         addl('}')
         addl('}')
     end
+     k=additer_next(k,i1);
+    i1=i1+1;
+
 end
 addl('')
 addf('v_turnsign', 1, 'alpha_max[0]', 'alpha_max[0]')
