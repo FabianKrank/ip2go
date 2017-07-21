@@ -14,6 +14,7 @@ generation_data.platform                = {'WIN'};
 generation_data.extern_timer_start      = 0;
 generation_data.starting_point_method   = 0;
 generation_data.calc_macheps            = 1;
+generation_data.math_arg_use_pointer    = true;
 
 
 %% Problemdimensionen

@@ -5,6 +5,7 @@ funstr = [];
 global gendata
 prec = gendata.prec;
 prefix = gendata.prefix;
+pointer = gendata.math_arg_use_pointer;
 
 % Beschreibung
 
@@ -13,7 +14,11 @@ output.stat = gen_stat_default_struct;
 funid = ['chol_factor_' num2str(n)];
 
 % Funktion-Kopf
-funstr = ['static void ' prefix funid '(' prec ' *a, ' prec ' *out)' char(10) '{'];
+if pointer
+	funstr = ['static void ' prefix funid '(' prec ' *a, ' prec ' *out)' char(10) '{'];
+else
+	funstr = ['static void ' prefix funid '(' prec ' a[' num2str(n*n) '], ' prec ' out[' num2str(n*n) '])' char(10) '{'];
+end
 
 if n == 1
     % Div0 check

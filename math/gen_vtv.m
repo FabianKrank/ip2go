@@ -1,10 +1,11 @@
 function output = gen_vtv(n)
 % Generiert Code für eine Vektor transponiert Vektor Multiplikation
 % Matrix A: n x 1
-% Vector B: m x 1
+% Vector B: n x 1
 global gendata
 prec = gendata.prec;
 prefix = gendata.prefix;
+pointer = gendata.math_arg_use_pointer;
 
 funstr = [];
 
@@ -13,7 +14,11 @@ output.stat = gen_stat_default_struct;
 funid = ['vtv_' num2str(n)];
 
 % Funktion-Kopf
-funstr = ['static void ' prefix funid '(' prec ' *a, ' prec ' *b, ' prec ' *out)' char(10) '{' char(10)];
+if pointer
+	funstr = ['static void ' prefix funid '(' prec ' *a, ' prec ' *b, ' prec ' *out)' char(10) '{' char(10)];
+else
+	funstr = ['static void ' prefix funid '(' prec ' a[' num2str(n) '], ' prec ' b[' num2str(n) '], ' prec ' out[1])' char(10) '{' char(10)];
+end
 
 if gendata.loopunrolling == 1
     for i= 0:(n-1)

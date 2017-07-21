@@ -5,6 +5,7 @@ function output = gen_mm(n,m,p,s1,s2)
 global gendata
 prec = gendata.prec;
 prefix = gendata.prefix;
+pointer = gendata.math_arg_use_pointer;
 
 funstr = [];
 
@@ -39,7 +40,11 @@ end
 %     funstr = ['static void ' prefix 'mm_' num2str(n) '_' num2str(m) '_' num2str(p) '(' prec ' *A, ' prec ' *B, ' prec ' *out)' char(10) '{' char(10)];
 % end
 
-funstr = ['static void ' prefix funid '(' prec ' *A, ' prec ' *B, ' prec ' *out)' char(10) '{' char(10)];
+if pointer
+	funstr = ['static void ' prefix funid '(' prec ' *A, ' prec ' *B, ' prec ' *out)' char(10) '{' char(10)];
+else
+	funstr = ['static void ' prefix funid '(' prec ' A[' num2str(n*m) '], ' prec ' B[' num2str(m*p) '], ' prec ' out[' num2str(n*p) '])' char(10) '{' char(10)];
+end
 
 if gendata.loopunrolling == 1
     if function_uses_structures

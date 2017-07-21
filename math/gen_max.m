@@ -5,6 +5,7 @@ function output = gen_max()
 global gendata
 prec = gendata.prec;
 prefix = gendata.prefix;
+pointer = gendata.math_arg_use_pointer;
 
 funstr = [];
 
@@ -13,7 +14,11 @@ output.stat = gen_stat_default_struct;
 funid = ['max'];
 
 % Funktion-Kopf
-funstr = ['static void ' prefix funid '(' prec ' *a, ' prec ' *b, ' prec ' *out)' char(10) '{' char(10)];
+if pointer
+	funstr = ['static void ' prefix funid '(' prec ' *a, ' prec ' *b, ' prec ' *out)' char(10) '{' char(10)];
+else
+	funstr = ['static void ' prefix funid '(' prec ' a[1], ' prec ' b[1], ' prec ' out[1])' char(10) '{' char(10)];
+end
 
 % Variablen-Deklaration
 %funstr = [funstr '  int i;' char(10)];

@@ -1,9 +1,10 @@
 function output = gen_chol_solve(n,m)
 % Generiert Code für das Lösen eines LGS mit Cholesky bei vorhandener
-% Cholesky-Zerlegung (L * L')
+% Cholesky-Zerlegung (L * L')*out = B mit L (nxn-Matrix), B = (nxm)-Matrix, out = (nxm)-Matrix
 global gendata
 prec = gendata.prec;
 prefix = gendata.prefix;
+pointer = gendata.math_arg_use_pointer;
 
 funstr = [];
 
@@ -12,7 +13,11 @@ output.stat = gen_stat_default_struct;
 funid = ['chol_solve_' num2str(n) '_' num2str(m)];
 
 % Funktion-Kopf
-funstr = ['static void ' prefix funid '(' prec ' *l, ' prec ' *b, ' prec ' *out)' char(10) '{'];
+if pointer
+	funstr = ['static void ' prefix funid '(' prec ' *l, ' prec ' *b, ' prec ' *out)' char(10) '{'];
+else
+	funstr = ['static void ' prefix funid '(' prec ' l[' num2str(n*n) '], ' prec ' b[' num2str(n*m) '], ' prec ' out[' num2str(n*m) '])' char(10) '{'];
+end
 
 if n == 1
     funstr = [funstr char(10) '  int i;'];
