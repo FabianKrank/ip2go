@@ -1,0 +1,2 @@
+Weitere Math-Functionen zur Codeerzeugung,
+Strukturausnutzung und Statistikfunktion evtl. nicht implementier.
