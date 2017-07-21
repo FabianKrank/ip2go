@@ -36,7 +36,7 @@ generation_data.parameter.max_iter              = 20;
 % Kon-/Divergenzkriterien
 generation_data.parameter.termcode_1_factor     = 1e4;
 generation_data.parameter.termcode_2_factor     = 1e8;
-
+generation_data.parameter.blowup_termination_on = 1;
 % Nachiteration
 generation_data.parameter.iter_ref_factor_1     = 100;
 generation_data.parameter.iter_ref_factor_2     = 1.001;
@@ -65,6 +65,12 @@ generation_data.path_target         = '';
 generation_data.path_algorithmus    = '';
 generation_data.path_math           = '';
 generation_data.path_structures     = '';
+generation_data.path_generator      = '';
+generation_data.path_wrap           = '';
+generation_data.path_sfun           = '';
 
+% Speicherstruktur
+generation_data.mem_type=1;
+generation_data.simple_struct=0;
 end
 

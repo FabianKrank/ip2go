@@ -3,7 +3,7 @@ generation_data = gen_lqdocpip_default_generation_data;
 
 %% Allgemeine Parameter setzen
 generation_data.prec = 'float';
-generation_data.starting_point_methode = 5;
+generation_data.starting_point_method = 5;
 generation_data.calc_macheps = 1;
 generation_data.timer = {'windows' 'dspace'};
 generation_data.extern_timer_start = 0;

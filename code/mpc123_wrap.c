@@ -994,6 +994,7 @@ int *dptr_int;
 /* Daten-Output-Pointer */
 double *doptr;
 int j;
+int j1;
 int output_dim = 1;
 int num_fields = 67;
 int num_cells = 12;
@@ -1092,180 +1093,24 @@ for (j=0;j<36;j++) {
 doptr[j] = (double)dptr[j]; }
 
 /* copy Hxu */
-tmpcell = mxCreateCellArray(1,&num_cells);
-mxSetField(output[0],0,"Hxu",tmpcell);
-/* Zeitschritt 0 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,0,tmpdata);
-dptr = mpc123_get_Hxu(0);
+tmpdata = mxCreateNumericMatrix(6,12,mxDOUBLE_CLASS,mxREAL);
+mxSetField(output[0],0,"Hxu",tmpdata);
 doptr = mxGetPr(tmpdata);
+for (j1=0;j1<12;j1++) {
+dptr = mpc123_get_Hxu(j1);
 for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 1 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,1,tmpdata);
-dptr = mpc123_get_Hxu(1);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 2 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,2,tmpdata);
-dptr = mpc123_get_Hxu(2);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 3 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,3,tmpdata);
-dptr = mpc123_get_Hxu(3);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 4 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,4,tmpdata);
-dptr = mpc123_get_Hxu(4);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 5 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,5,tmpdata);
-dptr = mpc123_get_Hxu(5);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 6 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,6,tmpdata);
-dptr = mpc123_get_Hxu(6);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 7 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,7,tmpdata);
-dptr = mpc123_get_Hxu(7);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 8 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,8,tmpdata);
-dptr = mpc123_get_Hxu(8);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 9 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,9,tmpdata);
-dptr = mpc123_get_Hxu(9);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 10 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,10,tmpdata);
-dptr = mpc123_get_Hxu(10);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 11 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,11,tmpdata);
-dptr = mpc123_get_Hxu(11);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
+doptr[j+j1*6] = (double)dptr[j]; }
+}
 
 /* copy Huu */
-tmpcell = mxCreateCellArray(1,&num_cells);
-mxSetField(output[0],0,"Huu",tmpcell);
-/* Zeitschritt 0 */
-tmpdata = mxCreateNumericMatrix(1,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,0,tmpdata);
-dptr = mpc123_get_Huu(0);
+tmpdata = mxCreateNumericMatrix(1,12,mxDOUBLE_CLASS,mxREAL);
+mxSetField(output[0],0,"Huu",tmpdata);
 doptr = mxGetPr(tmpdata);
+for (j1=0;j1<12;j1++) {
+dptr = mpc123_get_Huu(j1);
 for (j=0;j<1;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 1 */
-tmpdata = mxCreateNumericMatrix(1,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,1,tmpdata);
-dptr = mpc123_get_Huu(1);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<1;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 2 */
-tmpdata = mxCreateNumericMatrix(1,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,2,tmpdata);
-dptr = mpc123_get_Huu(2);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<1;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 3 */
-tmpdata = mxCreateNumericMatrix(1,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,3,tmpdata);
-dptr = mpc123_get_Huu(3);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<1;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 4 */
-tmpdata = mxCreateNumericMatrix(1,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,4,tmpdata);
-dptr = mpc123_get_Huu(4);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<1;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 5 */
-tmpdata = mxCreateNumericMatrix(1,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,5,tmpdata);
-dptr = mpc123_get_Huu(5);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<1;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 6 */
-tmpdata = mxCreateNumericMatrix(1,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,6,tmpdata);
-dptr = mpc123_get_Huu(6);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<1;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 7 */
-tmpdata = mxCreateNumericMatrix(1,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,7,tmpdata);
-dptr = mpc123_get_Huu(7);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<1;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 8 */
-tmpdata = mxCreateNumericMatrix(1,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,8,tmpdata);
-dptr = mpc123_get_Huu(8);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<1;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 9 */
-tmpdata = mxCreateNumericMatrix(1,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,9,tmpdata);
-dptr = mpc123_get_Huu(9);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<1;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 10 */
-tmpdata = mxCreateNumericMatrix(1,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,10,tmpdata);
-dptr = mpc123_get_Huu(10);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<1;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 11 */
-tmpdata = mxCreateNumericMatrix(1,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,11,tmpdata);
-dptr = mpc123_get_Huu(11);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<1;j++) {
-doptr[j] = (double)dptr[j]; }
+doptr[j+j1*1] = (double)dptr[j]; }
+}
 
 /* copy Hss */
 tmpcell = mxCreateCellArray(1,&num_cells);
@@ -1356,180 +1201,24 @@ for (j=0;j<16;j++) {
 doptr[j] = (double)dptr[j]; }
 
 /* copy f0x */
-tmpcell = mxCreateCellArray(1,&num_cells);
-mxSetField(output[0],0,"f0x",tmpcell);
-/* Zeitschritt 0 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,0,tmpdata);
-dptr = mpc123_get_f0x(0);
+tmpdata = mxCreateNumericMatrix(6,12,mxDOUBLE_CLASS,mxREAL);
+mxSetField(output[0],0,"f0x",tmpdata);
 doptr = mxGetPr(tmpdata);
+for (j1=0;j1<12;j1++) {
+dptr = mpc123_get_f0x(j1);
 for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 1 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,1,tmpdata);
-dptr = mpc123_get_f0x(1);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 2 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,2,tmpdata);
-dptr = mpc123_get_f0x(2);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 3 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,3,tmpdata);
-dptr = mpc123_get_f0x(3);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 4 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,4,tmpdata);
-dptr = mpc123_get_f0x(4);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 5 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,5,tmpdata);
-dptr = mpc123_get_f0x(5);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 6 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,6,tmpdata);
-dptr = mpc123_get_f0x(6);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 7 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,7,tmpdata);
-dptr = mpc123_get_f0x(7);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 8 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,8,tmpdata);
-dptr = mpc123_get_f0x(8);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 9 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,9,tmpdata);
-dptr = mpc123_get_f0x(9);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 10 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,10,tmpdata);
-dptr = mpc123_get_f0x(10);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 11 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,11,tmpdata);
-dptr = mpc123_get_f0x(11);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
+doptr[j+j1*6] = (double)dptr[j]; }
+}
 
 /* copy f0u */
-tmpcell = mxCreateCellArray(1,&num_cells);
-mxSetField(output[0],0,"f0u",tmpcell);
-/* Zeitschritt 0 */
-tmpdata = mxCreateNumericMatrix(1,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,0,tmpdata);
-dptr = mpc123_get_f0u(0);
+tmpdata = mxCreateNumericMatrix(1,12,mxDOUBLE_CLASS,mxREAL);
+mxSetField(output[0],0,"f0u",tmpdata);
 doptr = mxGetPr(tmpdata);
+for (j1=0;j1<12;j1++) {
+dptr = mpc123_get_f0u(j1);
 for (j=0;j<1;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 1 */
-tmpdata = mxCreateNumericMatrix(1,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,1,tmpdata);
-dptr = mpc123_get_f0u(1);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<1;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 2 */
-tmpdata = mxCreateNumericMatrix(1,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,2,tmpdata);
-dptr = mpc123_get_f0u(2);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<1;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 3 */
-tmpdata = mxCreateNumericMatrix(1,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,3,tmpdata);
-dptr = mpc123_get_f0u(3);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<1;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 4 */
-tmpdata = mxCreateNumericMatrix(1,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,4,tmpdata);
-dptr = mpc123_get_f0u(4);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<1;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 5 */
-tmpdata = mxCreateNumericMatrix(1,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,5,tmpdata);
-dptr = mpc123_get_f0u(5);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<1;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 6 */
-tmpdata = mxCreateNumericMatrix(1,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,6,tmpdata);
-dptr = mpc123_get_f0u(6);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<1;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 7 */
-tmpdata = mxCreateNumericMatrix(1,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,7,tmpdata);
-dptr = mpc123_get_f0u(7);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<1;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 8 */
-tmpdata = mxCreateNumericMatrix(1,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,8,tmpdata);
-dptr = mpc123_get_f0u(8);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<1;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 9 */
-tmpdata = mxCreateNumericMatrix(1,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,9,tmpdata);
-dptr = mpc123_get_f0u(9);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<1;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 10 */
-tmpdata = mxCreateNumericMatrix(1,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,10,tmpdata);
-dptr = mpc123_get_f0u(10);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<1;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 11 */
-tmpdata = mxCreateNumericMatrix(1,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,11,tmpdata);
-dptr = mpc123_get_f0u(11);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<1;j++) {
-doptr[j] = (double)dptr[j]; }
+doptr[j+j1*1] = (double)dptr[j]; }
+}
 
 /* copy f0s */
 tmpcell = mxCreateCellArray(1,&num_cells);
@@ -1708,180 +1397,24 @@ for (j=0;j<36;j++) {
 doptr[j] = (double)dptr[j]; }
 
 /* copy fu */
-tmpcell = mxCreateCellArray(1,&num_cells);
-mxSetField(output[0],0,"fu",tmpcell);
-/* Zeitschritt 0 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,0,tmpdata);
-dptr = mpc123_get_fu(0);
+tmpdata = mxCreateNumericMatrix(6,12,mxDOUBLE_CLASS,mxREAL);
+mxSetField(output[0],0,"fu",tmpdata);
 doptr = mxGetPr(tmpdata);
+for (j1=0;j1<12;j1++) {
+dptr = mpc123_get_fu(j1);
 for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 1 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,1,tmpdata);
-dptr = mpc123_get_fu(1);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 2 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,2,tmpdata);
-dptr = mpc123_get_fu(2);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 3 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,3,tmpdata);
-dptr = mpc123_get_fu(3);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 4 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,4,tmpdata);
-dptr = mpc123_get_fu(4);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 5 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,5,tmpdata);
-dptr = mpc123_get_fu(5);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 6 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,6,tmpdata);
-dptr = mpc123_get_fu(6);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 7 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,7,tmpdata);
-dptr = mpc123_get_fu(7);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 8 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,8,tmpdata);
-dptr = mpc123_get_fu(8);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 9 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,9,tmpdata);
-dptr = mpc123_get_fu(9);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 10 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,10,tmpdata);
-dptr = mpc123_get_fu(10);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 11 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,11,tmpdata);
-dptr = mpc123_get_fu(11);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
+doptr[j+j1*6] = (double)dptr[j]; }
+}
 
 /* copy f */
-tmpcell = mxCreateCellArray(1,&num_cells);
-mxSetField(output[0],0,"f",tmpcell);
-/* Zeitschritt 0 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,0,tmpdata);
-dptr = mpc123_get_f(0);
+tmpdata = mxCreateNumericMatrix(6,12,mxDOUBLE_CLASS,mxREAL);
+mxSetField(output[0],0,"f",tmpdata);
 doptr = mxGetPr(tmpdata);
+for (j1=0;j1<12;j1++) {
+dptr = mpc123_get_f(j1);
 for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 1 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,1,tmpdata);
-dptr = mpc123_get_f(1);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 2 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,2,tmpdata);
-dptr = mpc123_get_f(2);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 3 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,3,tmpdata);
-dptr = mpc123_get_f(3);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 4 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,4,tmpdata);
-dptr = mpc123_get_f(4);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 5 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,5,tmpdata);
-dptr = mpc123_get_f(5);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 6 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,6,tmpdata);
-dptr = mpc123_get_f(6);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 7 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,7,tmpdata);
-dptr = mpc123_get_f(7);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 8 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,8,tmpdata);
-dptr = mpc123_get_f(8);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 9 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,9,tmpdata);
-dptr = mpc123_get_f(9);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 10 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,10,tmpdata);
-dptr = mpc123_get_f(10);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 11 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,11,tmpdata);
-dptr = mpc123_get_f(11);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
+doptr[j+j1*6] = (double)dptr[j]; }
+}
 
 /* copy gx */
 tmpcell = mxCreateCellArray(1,&num_cells);
@@ -2148,180 +1681,24 @@ for (j=0;j<4;j++) {
 doptr[j] = (double)dptr[j]; }
 
 /* copy x */
-tmpcell = mxCreateCellArray(1,&num_cells);
-mxSetField(output[0],0,"x",tmpcell);
-/* Zeitschritt 0 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,0,tmpdata);
-dptr = mpc123_get_x(0);
+tmpdata = mxCreateNumericMatrix(6,12,mxDOUBLE_CLASS,mxREAL);
+mxSetField(output[0],0,"x",tmpdata);
 doptr = mxGetPr(tmpdata);
+for (j1=0;j1<12;j1++) {
+dptr = mpc123_get_x(j1);
 for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 1 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,1,tmpdata);
-dptr = mpc123_get_x(1);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 2 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,2,tmpdata);
-dptr = mpc123_get_x(2);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 3 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,3,tmpdata);
-dptr = mpc123_get_x(3);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 4 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,4,tmpdata);
-dptr = mpc123_get_x(4);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 5 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,5,tmpdata);
-dptr = mpc123_get_x(5);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 6 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,6,tmpdata);
-dptr = mpc123_get_x(6);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 7 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,7,tmpdata);
-dptr = mpc123_get_x(7);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 8 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,8,tmpdata);
-dptr = mpc123_get_x(8);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 9 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,9,tmpdata);
-dptr = mpc123_get_x(9);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 10 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,10,tmpdata);
-dptr = mpc123_get_x(10);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 11 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,11,tmpdata);
-dptr = mpc123_get_x(11);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
+doptr[j+j1*6] = (double)dptr[j]; }
+}
 
 /* copy u */
-tmpcell = mxCreateCellArray(1,&num_cells);
-mxSetField(output[0],0,"u",tmpcell);
-/* Zeitschritt 0 */
-tmpdata = mxCreateNumericMatrix(1,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,0,tmpdata);
-dptr = mpc123_get_u(0);
+tmpdata = mxCreateNumericMatrix(1,12,mxDOUBLE_CLASS,mxREAL);
+mxSetField(output[0],0,"u",tmpdata);
 doptr = mxGetPr(tmpdata);
+for (j1=0;j1<12;j1++) {
+dptr = mpc123_get_u(j1);
 for (j=0;j<1;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 1 */
-tmpdata = mxCreateNumericMatrix(1,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,1,tmpdata);
-dptr = mpc123_get_u(1);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<1;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 2 */
-tmpdata = mxCreateNumericMatrix(1,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,2,tmpdata);
-dptr = mpc123_get_u(2);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<1;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 3 */
-tmpdata = mxCreateNumericMatrix(1,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,3,tmpdata);
-dptr = mpc123_get_u(3);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<1;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 4 */
-tmpdata = mxCreateNumericMatrix(1,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,4,tmpdata);
-dptr = mpc123_get_u(4);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<1;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 5 */
-tmpdata = mxCreateNumericMatrix(1,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,5,tmpdata);
-dptr = mpc123_get_u(5);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<1;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 6 */
-tmpdata = mxCreateNumericMatrix(1,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,6,tmpdata);
-dptr = mpc123_get_u(6);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<1;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 7 */
-tmpdata = mxCreateNumericMatrix(1,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,7,tmpdata);
-dptr = mpc123_get_u(7);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<1;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 8 */
-tmpdata = mxCreateNumericMatrix(1,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,8,tmpdata);
-dptr = mpc123_get_u(8);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<1;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 9 */
-tmpdata = mxCreateNumericMatrix(1,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,9,tmpdata);
-dptr = mpc123_get_u(9);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<1;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 10 */
-tmpdata = mxCreateNumericMatrix(1,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,10,tmpdata);
-dptr = mpc123_get_u(10);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<1;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 11 */
-tmpdata = mxCreateNumericMatrix(1,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,11,tmpdata);
-dptr = mpc123_get_u(11);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<1;j++) {
-doptr[j] = (double)dptr[j]; }
+doptr[j+j1*1] = (double)dptr[j]; }
+}
 
 /* copy s */
 tmpcell = mxCreateCellArray(1,&num_cells);
@@ -2412,92 +1789,14 @@ for (j=0;j<4;j++) {
 doptr[j] = (double)dptr[j]; }
 
 /* copy p */
-tmpcell = mxCreateCellArray(1,&num_cells);
-mxSetField(output[0],0,"p",tmpcell);
-/* Zeitschritt 0 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,0,tmpdata);
-dptr = mpc123_get_p(0);
+tmpdata = mxCreateNumericMatrix(6,12,mxDOUBLE_CLASS,mxREAL);
+mxSetField(output[0],0,"p",tmpdata);
 doptr = mxGetPr(tmpdata);
+for (j1=0;j1<12;j1++) {
+dptr = mpc123_get_p(j1);
 for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 1 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,1,tmpdata);
-dptr = mpc123_get_p(1);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 2 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,2,tmpdata);
-dptr = mpc123_get_p(2);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 3 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,3,tmpdata);
-dptr = mpc123_get_p(3);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 4 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,4,tmpdata);
-dptr = mpc123_get_p(4);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 5 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,5,tmpdata);
-dptr = mpc123_get_p(5);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 6 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,6,tmpdata);
-dptr = mpc123_get_p(6);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 7 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,7,tmpdata);
-dptr = mpc123_get_p(7);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 8 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,8,tmpdata);
-dptr = mpc123_get_p(8);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 9 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,9,tmpdata);
-dptr = mpc123_get_p(9);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 10 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,10,tmpdata);
-dptr = mpc123_get_p(10);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 11 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,11,tmpdata);
-dptr = mpc123_get_p(11);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
+doptr[j+j1*6] = (double)dptr[j]; }
+}
 
 /* copy y */
 tmpcell = mxCreateCellArray(1,&num_cells);
@@ -2676,268 +1975,34 @@ for (j=0;j<8;j++) {
 doptr[j] = (double)dptr[j]; }
 
 /* copy dx */
-tmpcell = mxCreateCellArray(1,&num_cells);
-mxSetField(output[0],0,"dx",tmpcell);
-/* Zeitschritt 0 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,0,tmpdata);
-dptr = mpc123_get_dx(0);
+tmpdata = mxCreateNumericMatrix(6,12,mxDOUBLE_CLASS,mxREAL);
+mxSetField(output[0],0,"dx",tmpdata);
 doptr = mxGetPr(tmpdata);
+for (j1=0;j1<12;j1++) {
+dptr = mpc123_get_dx(j1);
 for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 1 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,1,tmpdata);
-dptr = mpc123_get_dx(1);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 2 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,2,tmpdata);
-dptr = mpc123_get_dx(2);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 3 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,3,tmpdata);
-dptr = mpc123_get_dx(3);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 4 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,4,tmpdata);
-dptr = mpc123_get_dx(4);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 5 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,5,tmpdata);
-dptr = mpc123_get_dx(5);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 6 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,6,tmpdata);
-dptr = mpc123_get_dx(6);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 7 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,7,tmpdata);
-dptr = mpc123_get_dx(7);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 8 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,8,tmpdata);
-dptr = mpc123_get_dx(8);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 9 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,9,tmpdata);
-dptr = mpc123_get_dx(9);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 10 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,10,tmpdata);
-dptr = mpc123_get_dx(10);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 11 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,11,tmpdata);
-dptr = mpc123_get_dx(11);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
+doptr[j+j1*6] = (double)dptr[j]; }
+}
 
 /* copy du */
-tmpcell = mxCreateCellArray(1,&num_cells);
-mxSetField(output[0],0,"du",tmpcell);
-/* Zeitschritt 0 */
-tmpdata = mxCreateNumericMatrix(1,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,0,tmpdata);
-dptr = mpc123_get_du(0);
+tmpdata = mxCreateNumericMatrix(1,12,mxDOUBLE_CLASS,mxREAL);
+mxSetField(output[0],0,"du",tmpdata);
 doptr = mxGetPr(tmpdata);
+for (j1=0;j1<12;j1++) {
+dptr = mpc123_get_du(j1);
 for (j=0;j<1;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 1 */
-tmpdata = mxCreateNumericMatrix(1,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,1,tmpdata);
-dptr = mpc123_get_du(1);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<1;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 2 */
-tmpdata = mxCreateNumericMatrix(1,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,2,tmpdata);
-dptr = mpc123_get_du(2);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<1;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 3 */
-tmpdata = mxCreateNumericMatrix(1,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,3,tmpdata);
-dptr = mpc123_get_du(3);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<1;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 4 */
-tmpdata = mxCreateNumericMatrix(1,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,4,tmpdata);
-dptr = mpc123_get_du(4);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<1;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 5 */
-tmpdata = mxCreateNumericMatrix(1,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,5,tmpdata);
-dptr = mpc123_get_du(5);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<1;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 6 */
-tmpdata = mxCreateNumericMatrix(1,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,6,tmpdata);
-dptr = mpc123_get_du(6);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<1;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 7 */
-tmpdata = mxCreateNumericMatrix(1,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,7,tmpdata);
-dptr = mpc123_get_du(7);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<1;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 8 */
-tmpdata = mxCreateNumericMatrix(1,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,8,tmpdata);
-dptr = mpc123_get_du(8);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<1;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 9 */
-tmpdata = mxCreateNumericMatrix(1,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,9,tmpdata);
-dptr = mpc123_get_du(9);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<1;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 10 */
-tmpdata = mxCreateNumericMatrix(1,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,10,tmpdata);
-dptr = mpc123_get_du(10);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<1;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 11 */
-tmpdata = mxCreateNumericMatrix(1,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,11,tmpdata);
-dptr = mpc123_get_du(11);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<1;j++) {
-doptr[j] = (double)dptr[j]; }
+doptr[j+j1*1] = (double)dptr[j]; }
+}
 
 /* copy dp */
-tmpcell = mxCreateCellArray(1,&num_cells);
-mxSetField(output[0],0,"dp",tmpcell);
-/* Zeitschritt 0 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,0,tmpdata);
-dptr = mpc123_get_dp(0);
+tmpdata = mxCreateNumericMatrix(6,12,mxDOUBLE_CLASS,mxREAL);
+mxSetField(output[0],0,"dp",tmpdata);
 doptr = mxGetPr(tmpdata);
+for (j1=0;j1<12;j1++) {
+dptr = mpc123_get_dp(j1);
 for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 1 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,1,tmpdata);
-dptr = mpc123_get_dp(1);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 2 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,2,tmpdata);
-dptr = mpc123_get_dp(2);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 3 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,3,tmpdata);
-dptr = mpc123_get_dp(3);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 4 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,4,tmpdata);
-dptr = mpc123_get_dp(4);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 5 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,5,tmpdata);
-dptr = mpc123_get_dp(5);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 6 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,6,tmpdata);
-dptr = mpc123_get_dp(6);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 7 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,7,tmpdata);
-dptr = mpc123_get_dp(7);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 8 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,8,tmpdata);
-dptr = mpc123_get_dp(8);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 9 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,9,tmpdata);
-dptr = mpc123_get_dp(9);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 10 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,10,tmpdata);
-dptr = mpc123_get_dp(10);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 11 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,11,tmpdata);
-dptr = mpc123_get_dp(11);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
+doptr[j+j1*6] = (double)dptr[j]; }
+}
 
 /* copy dy */
 tmpcell = mxCreateCellArray(1,&num_cells);
@@ -3204,180 +2269,24 @@ for (j=0;j<4;j++) {
 doptr[j] = (double)dptr[j]; }
 
 /* copy rf0x */
-tmpcell = mxCreateCellArray(1,&num_cells);
-mxSetField(output[0],0,"rf0x",tmpcell);
-/* Zeitschritt 0 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,0,tmpdata);
-dptr = mpc123_get_rf0x(0);
+tmpdata = mxCreateNumericMatrix(6,12,mxDOUBLE_CLASS,mxREAL);
+mxSetField(output[0],0,"rf0x",tmpdata);
 doptr = mxGetPr(tmpdata);
+for (j1=0;j1<12;j1++) {
+dptr = mpc123_get_rf0x(j1);
 for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 1 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,1,tmpdata);
-dptr = mpc123_get_rf0x(1);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 2 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,2,tmpdata);
-dptr = mpc123_get_rf0x(2);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 3 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,3,tmpdata);
-dptr = mpc123_get_rf0x(3);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 4 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,4,tmpdata);
-dptr = mpc123_get_rf0x(4);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 5 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,5,tmpdata);
-dptr = mpc123_get_rf0x(5);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 6 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,6,tmpdata);
-dptr = mpc123_get_rf0x(6);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 7 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,7,tmpdata);
-dptr = mpc123_get_rf0x(7);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 8 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,8,tmpdata);
-dptr = mpc123_get_rf0x(8);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 9 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,9,tmpdata);
-dptr = mpc123_get_rf0x(9);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 10 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,10,tmpdata);
-dptr = mpc123_get_rf0x(10);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 11 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,11,tmpdata);
-dptr = mpc123_get_rf0x(11);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
+doptr[j+j1*6] = (double)dptr[j]; }
+}
 
 /* copy rf0u */
-tmpcell = mxCreateCellArray(1,&num_cells);
-mxSetField(output[0],0,"rf0u",tmpcell);
-/* Zeitschritt 0 */
-tmpdata = mxCreateNumericMatrix(1,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,0,tmpdata);
-dptr = mpc123_get_rf0u(0);
+tmpdata = mxCreateNumericMatrix(1,12,mxDOUBLE_CLASS,mxREAL);
+mxSetField(output[0],0,"rf0u",tmpdata);
 doptr = mxGetPr(tmpdata);
+for (j1=0;j1<12;j1++) {
+dptr = mpc123_get_rf0u(j1);
 for (j=0;j<1;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 1 */
-tmpdata = mxCreateNumericMatrix(1,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,1,tmpdata);
-dptr = mpc123_get_rf0u(1);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<1;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 2 */
-tmpdata = mxCreateNumericMatrix(1,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,2,tmpdata);
-dptr = mpc123_get_rf0u(2);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<1;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 3 */
-tmpdata = mxCreateNumericMatrix(1,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,3,tmpdata);
-dptr = mpc123_get_rf0u(3);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<1;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 4 */
-tmpdata = mxCreateNumericMatrix(1,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,4,tmpdata);
-dptr = mpc123_get_rf0u(4);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<1;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 5 */
-tmpdata = mxCreateNumericMatrix(1,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,5,tmpdata);
-dptr = mpc123_get_rf0u(5);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<1;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 6 */
-tmpdata = mxCreateNumericMatrix(1,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,6,tmpdata);
-dptr = mpc123_get_rf0u(6);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<1;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 7 */
-tmpdata = mxCreateNumericMatrix(1,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,7,tmpdata);
-dptr = mpc123_get_rf0u(7);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<1;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 8 */
-tmpdata = mxCreateNumericMatrix(1,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,8,tmpdata);
-dptr = mpc123_get_rf0u(8);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<1;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 9 */
-tmpdata = mxCreateNumericMatrix(1,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,9,tmpdata);
-dptr = mpc123_get_rf0u(9);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<1;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 10 */
-tmpdata = mxCreateNumericMatrix(1,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,10,tmpdata);
-dptr = mpc123_get_rf0u(10);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<1;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 11 */
-tmpdata = mxCreateNumericMatrix(1,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,11,tmpdata);
-dptr = mpc123_get_rf0u(11);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<1;j++) {
-doptr[j] = (double)dptr[j]; }
+doptr[j+j1*1] = (double)dptr[j]; }
+}
 
 /* copy rf0s */
 tmpcell = mxCreateCellArray(1,&num_cells);
@@ -3468,92 +2377,14 @@ for (j=0;j<4;j++) {
 doptr[j] = (double)dptr[j]; }
 
 /* copy rf */
-tmpcell = mxCreateCellArray(1,&num_cells);
-mxSetField(output[0],0,"rf",tmpcell);
-/* Zeitschritt 0 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,0,tmpdata);
-dptr = mpc123_get_rf(0);
+tmpdata = mxCreateNumericMatrix(6,12,mxDOUBLE_CLASS,mxREAL);
+mxSetField(output[0],0,"rf",tmpdata);
 doptr = mxGetPr(tmpdata);
+for (j1=0;j1<12;j1++) {
+dptr = mpc123_get_rf(j1);
 for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 1 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,1,tmpdata);
-dptr = mpc123_get_rf(1);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 2 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,2,tmpdata);
-dptr = mpc123_get_rf(2);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 3 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,3,tmpdata);
-dptr = mpc123_get_rf(3);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 4 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,4,tmpdata);
-dptr = mpc123_get_rf(4);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 5 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,5,tmpdata);
-dptr = mpc123_get_rf(5);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 6 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,6,tmpdata);
-dptr = mpc123_get_rf(6);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 7 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,7,tmpdata);
-dptr = mpc123_get_rf(7);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 8 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,8,tmpdata);
-dptr = mpc123_get_rf(8);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 9 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,9,tmpdata);
-dptr = mpc123_get_rf(9);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 10 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,10,tmpdata);
-dptr = mpc123_get_rf(10);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 11 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,11,tmpdata);
-dptr = mpc123_get_rf(11);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
+doptr[j+j1*6] = (double)dptr[j]; }
+}
 
 /* copy rc */
 tmpcell = mxCreateCellArray(1,&num_cells);
@@ -3820,180 +2651,24 @@ for (j=0;j<4;j++) {
 doptr[j] = (double)dptr[j]; }
 
 /* copy rrf0x */
-tmpcell = mxCreateCellArray(1,&num_cells);
-mxSetField(output[0],0,"rrf0x",tmpcell);
-/* Zeitschritt 0 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,0,tmpdata);
-dptr = mpc123_get_rrf0x(0);
+tmpdata = mxCreateNumericMatrix(6,12,mxDOUBLE_CLASS,mxREAL);
+mxSetField(output[0],0,"rrf0x",tmpdata);
 doptr = mxGetPr(tmpdata);
+for (j1=0;j1<12;j1++) {
+dptr = mpc123_get_rrf0x(j1);
 for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 1 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,1,tmpdata);
-dptr = mpc123_get_rrf0x(1);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 2 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,2,tmpdata);
-dptr = mpc123_get_rrf0x(2);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 3 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,3,tmpdata);
-dptr = mpc123_get_rrf0x(3);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 4 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,4,tmpdata);
-dptr = mpc123_get_rrf0x(4);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 5 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,5,tmpdata);
-dptr = mpc123_get_rrf0x(5);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 6 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,6,tmpdata);
-dptr = mpc123_get_rrf0x(6);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 7 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,7,tmpdata);
-dptr = mpc123_get_rrf0x(7);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 8 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,8,tmpdata);
-dptr = mpc123_get_rrf0x(8);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 9 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,9,tmpdata);
-dptr = mpc123_get_rrf0x(9);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 10 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,10,tmpdata);
-dptr = mpc123_get_rrf0x(10);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 11 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,11,tmpdata);
-dptr = mpc123_get_rrf0x(11);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
+doptr[j+j1*6] = (double)dptr[j]; }
+}
 
 /* copy rrf0u */
-tmpcell = mxCreateCellArray(1,&num_cells);
-mxSetField(output[0],0,"rrf0u",tmpcell);
-/* Zeitschritt 0 */
-tmpdata = mxCreateNumericMatrix(1,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,0,tmpdata);
-dptr = mpc123_get_rrf0u(0);
+tmpdata = mxCreateNumericMatrix(1,12,mxDOUBLE_CLASS,mxREAL);
+mxSetField(output[0],0,"rrf0u",tmpdata);
 doptr = mxGetPr(tmpdata);
+for (j1=0;j1<12;j1++) {
+dptr = mpc123_get_rrf0u(j1);
 for (j=0;j<1;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 1 */
-tmpdata = mxCreateNumericMatrix(1,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,1,tmpdata);
-dptr = mpc123_get_rrf0u(1);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<1;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 2 */
-tmpdata = mxCreateNumericMatrix(1,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,2,tmpdata);
-dptr = mpc123_get_rrf0u(2);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<1;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 3 */
-tmpdata = mxCreateNumericMatrix(1,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,3,tmpdata);
-dptr = mpc123_get_rrf0u(3);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<1;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 4 */
-tmpdata = mxCreateNumericMatrix(1,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,4,tmpdata);
-dptr = mpc123_get_rrf0u(4);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<1;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 5 */
-tmpdata = mxCreateNumericMatrix(1,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,5,tmpdata);
-dptr = mpc123_get_rrf0u(5);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<1;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 6 */
-tmpdata = mxCreateNumericMatrix(1,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,6,tmpdata);
-dptr = mpc123_get_rrf0u(6);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<1;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 7 */
-tmpdata = mxCreateNumericMatrix(1,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,7,tmpdata);
-dptr = mpc123_get_rrf0u(7);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<1;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 8 */
-tmpdata = mxCreateNumericMatrix(1,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,8,tmpdata);
-dptr = mpc123_get_rrf0u(8);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<1;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 9 */
-tmpdata = mxCreateNumericMatrix(1,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,9,tmpdata);
-dptr = mpc123_get_rrf0u(9);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<1;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 10 */
-tmpdata = mxCreateNumericMatrix(1,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,10,tmpdata);
-dptr = mpc123_get_rrf0u(10);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<1;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 11 */
-tmpdata = mxCreateNumericMatrix(1,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,11,tmpdata);
-dptr = mpc123_get_rrf0u(11);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<1;j++) {
-doptr[j] = (double)dptr[j]; }
+doptr[j+j1*1] = (double)dptr[j]; }
+}
 
 /* copy rhsxs */
 tmpcell = mxCreateCellArray(1,&num_cells);
@@ -4260,180 +2935,24 @@ for (j=0;j<36;j++) {
 doptr[j] = (double)dptr[j]; }
 
 /* copy Gxu */
-tmpcell = mxCreateCellArray(1,&num_cells);
-mxSetField(output[0],0,"Gxu",tmpcell);
-/* Zeitschritt 0 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,0,tmpdata);
-dptr = mpc123_get_Gxu(0);
+tmpdata = mxCreateNumericMatrix(6,12,mxDOUBLE_CLASS,mxREAL);
+mxSetField(output[0],0,"Gxu",tmpdata);
 doptr = mxGetPr(tmpdata);
+for (j1=0;j1<12;j1++) {
+dptr = mpc123_get_Gxu(j1);
 for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 1 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,1,tmpdata);
-dptr = mpc123_get_Gxu(1);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 2 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,2,tmpdata);
-dptr = mpc123_get_Gxu(2);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 3 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,3,tmpdata);
-dptr = mpc123_get_Gxu(3);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 4 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,4,tmpdata);
-dptr = mpc123_get_Gxu(4);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 5 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,5,tmpdata);
-dptr = mpc123_get_Gxu(5);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 6 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,6,tmpdata);
-dptr = mpc123_get_Gxu(6);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 7 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,7,tmpdata);
-dptr = mpc123_get_Gxu(7);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 8 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,8,tmpdata);
-dptr = mpc123_get_Gxu(8);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 9 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,9,tmpdata);
-dptr = mpc123_get_Gxu(9);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 10 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,10,tmpdata);
-dptr = mpc123_get_Gxu(10);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 11 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,11,tmpdata);
-dptr = mpc123_get_Gxu(11);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
+doptr[j+j1*6] = (double)dptr[j]; }
+}
 
 /* copy Guu */
-tmpcell = mxCreateCellArray(1,&num_cells);
-mxSetField(output[0],0,"Guu",tmpcell);
-/* Zeitschritt 0 */
-tmpdata = mxCreateNumericMatrix(1,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,0,tmpdata);
-dptr = mpc123_get_Guu(0);
+tmpdata = mxCreateNumericMatrix(1,12,mxDOUBLE_CLASS,mxREAL);
+mxSetField(output[0],0,"Guu",tmpdata);
 doptr = mxGetPr(tmpdata);
+for (j1=0;j1<12;j1++) {
+dptr = mpc123_get_Guu(j1);
 for (j=0;j<1;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 1 */
-tmpdata = mxCreateNumericMatrix(1,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,1,tmpdata);
-dptr = mpc123_get_Guu(1);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<1;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 2 */
-tmpdata = mxCreateNumericMatrix(1,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,2,tmpdata);
-dptr = mpc123_get_Guu(2);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<1;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 3 */
-tmpdata = mxCreateNumericMatrix(1,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,3,tmpdata);
-dptr = mpc123_get_Guu(3);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<1;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 4 */
-tmpdata = mxCreateNumericMatrix(1,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,4,tmpdata);
-dptr = mpc123_get_Guu(4);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<1;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 5 */
-tmpdata = mxCreateNumericMatrix(1,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,5,tmpdata);
-dptr = mpc123_get_Guu(5);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<1;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 6 */
-tmpdata = mxCreateNumericMatrix(1,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,6,tmpdata);
-dptr = mpc123_get_Guu(6);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<1;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 7 */
-tmpdata = mxCreateNumericMatrix(1,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,7,tmpdata);
-dptr = mpc123_get_Guu(7);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<1;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 8 */
-tmpdata = mxCreateNumericMatrix(1,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,8,tmpdata);
-dptr = mpc123_get_Guu(8);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<1;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 9 */
-tmpdata = mxCreateNumericMatrix(1,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,9,tmpdata);
-dptr = mpc123_get_Guu(9);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<1;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 10 */
-tmpdata = mxCreateNumericMatrix(1,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,10,tmpdata);
-dptr = mpc123_get_Guu(10);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<1;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 11 */
-tmpdata = mxCreateNumericMatrix(1,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,11,tmpdata);
-dptr = mpc123_get_Guu(11);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<1;j++) {
-doptr[j] = (double)dptr[j]; }
+doptr[j+j1*1] = (double)dptr[j]; }
+}
 
 /* copy Rux */
 tmpcell = mxCreateCellArray(1,&num_cells);
@@ -4612,444 +3131,54 @@ for (j=0;j<36;j++) {
 doptr[j] = (double)dptr[j]; }
 
 /* copy L */
-tmpcell = mxCreateCellArray(1,&num_cells);
-mxSetField(output[0],0,"L",tmpcell);
-/* Zeitschritt 0 */
-tmpdata = mxCreateNumericMatrix(1,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,0,tmpdata);
-dptr = mpc123_get_L(0);
+tmpdata = mxCreateNumericMatrix(1,12,mxDOUBLE_CLASS,mxREAL);
+mxSetField(output[0],0,"L",tmpdata);
 doptr = mxGetPr(tmpdata);
+for (j1=0;j1<12;j1++) {
+dptr = mpc123_get_L(j1);
 for (j=0;j<1;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 1 */
-tmpdata = mxCreateNumericMatrix(1,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,1,tmpdata);
-dptr = mpc123_get_L(1);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<1;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 2 */
-tmpdata = mxCreateNumericMatrix(1,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,2,tmpdata);
-dptr = mpc123_get_L(2);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<1;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 3 */
-tmpdata = mxCreateNumericMatrix(1,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,3,tmpdata);
-dptr = mpc123_get_L(3);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<1;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 4 */
-tmpdata = mxCreateNumericMatrix(1,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,4,tmpdata);
-dptr = mpc123_get_L(4);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<1;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 5 */
-tmpdata = mxCreateNumericMatrix(1,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,5,tmpdata);
-dptr = mpc123_get_L(5);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<1;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 6 */
-tmpdata = mxCreateNumericMatrix(1,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,6,tmpdata);
-dptr = mpc123_get_L(6);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<1;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 7 */
-tmpdata = mxCreateNumericMatrix(1,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,7,tmpdata);
-dptr = mpc123_get_L(7);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<1;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 8 */
-tmpdata = mxCreateNumericMatrix(1,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,8,tmpdata);
-dptr = mpc123_get_L(8);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<1;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 9 */
-tmpdata = mxCreateNumericMatrix(1,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,9,tmpdata);
-dptr = mpc123_get_L(9);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<1;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 10 */
-tmpdata = mxCreateNumericMatrix(1,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,10,tmpdata);
-dptr = mpc123_get_L(10);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<1;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 11 */
-tmpdata = mxCreateNumericMatrix(1,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,11,tmpdata);
-dptr = mpc123_get_L(11);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<1;j++) {
-doptr[j] = (double)dptr[j]; }
+doptr[j+j1*1] = (double)dptr[j]; }
+}
 
 /* copy Gx */
-tmpcell = mxCreateCellArray(1,&num_cells);
-mxSetField(output[0],0,"Gx",tmpcell);
-/* Zeitschritt 0 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,0,tmpdata);
-dptr = mpc123_get_Gx(0);
+tmpdata = mxCreateNumericMatrix(6,12,mxDOUBLE_CLASS,mxREAL);
+mxSetField(output[0],0,"Gx",tmpdata);
 doptr = mxGetPr(tmpdata);
+for (j1=0;j1<12;j1++) {
+dptr = mpc123_get_Gx(j1);
 for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 1 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,1,tmpdata);
-dptr = mpc123_get_Gx(1);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 2 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,2,tmpdata);
-dptr = mpc123_get_Gx(2);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 3 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,3,tmpdata);
-dptr = mpc123_get_Gx(3);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 4 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,4,tmpdata);
-dptr = mpc123_get_Gx(4);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 5 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,5,tmpdata);
-dptr = mpc123_get_Gx(5);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 6 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,6,tmpdata);
-dptr = mpc123_get_Gx(6);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 7 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,7,tmpdata);
-dptr = mpc123_get_Gx(7);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 8 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,8,tmpdata);
-dptr = mpc123_get_Gx(8);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 9 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,9,tmpdata);
-dptr = mpc123_get_Gx(9);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 10 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,10,tmpdata);
-dptr = mpc123_get_Gx(10);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 11 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,11,tmpdata);
-dptr = mpc123_get_Gx(11);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
+doptr[j+j1*6] = (double)dptr[j]; }
+}
 
 /* copy Gu */
-tmpcell = mxCreateCellArray(1,&num_cells);
-mxSetField(output[0],0,"Gu",tmpcell);
-/* Zeitschritt 0 */
-tmpdata = mxCreateNumericMatrix(1,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,0,tmpdata);
-dptr = mpc123_get_Gu(0);
+tmpdata = mxCreateNumericMatrix(1,12,mxDOUBLE_CLASS,mxREAL);
+mxSetField(output[0],0,"Gu",tmpdata);
 doptr = mxGetPr(tmpdata);
+for (j1=0;j1<12;j1++) {
+dptr = mpc123_get_Gu(j1);
 for (j=0;j<1;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 1 */
-tmpdata = mxCreateNumericMatrix(1,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,1,tmpdata);
-dptr = mpc123_get_Gu(1);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<1;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 2 */
-tmpdata = mxCreateNumericMatrix(1,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,2,tmpdata);
-dptr = mpc123_get_Gu(2);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<1;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 3 */
-tmpdata = mxCreateNumericMatrix(1,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,3,tmpdata);
-dptr = mpc123_get_Gu(3);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<1;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 4 */
-tmpdata = mxCreateNumericMatrix(1,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,4,tmpdata);
-dptr = mpc123_get_Gu(4);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<1;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 5 */
-tmpdata = mxCreateNumericMatrix(1,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,5,tmpdata);
-dptr = mpc123_get_Gu(5);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<1;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 6 */
-tmpdata = mxCreateNumericMatrix(1,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,6,tmpdata);
-dptr = mpc123_get_Gu(6);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<1;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 7 */
-tmpdata = mxCreateNumericMatrix(1,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,7,tmpdata);
-dptr = mpc123_get_Gu(7);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<1;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 8 */
-tmpdata = mxCreateNumericMatrix(1,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,8,tmpdata);
-dptr = mpc123_get_Gu(8);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<1;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 9 */
-tmpdata = mxCreateNumericMatrix(1,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,9,tmpdata);
-dptr = mpc123_get_Gu(9);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<1;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 10 */
-tmpdata = mxCreateNumericMatrix(1,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,10,tmpdata);
-dptr = mpc123_get_Gu(10);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<1;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 11 */
-tmpdata = mxCreateNumericMatrix(1,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,11,tmpdata);
-dptr = mpc123_get_Gu(11);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<1;j++) {
-doptr[j] = (double)dptr[j]; }
+doptr[j+j1*1] = (double)dptr[j]; }
+}
 
 /* copy Vx */
-tmpcell = mxCreateCellArray(1,&num_cells);
-mxSetField(output[0],0,"Vx",tmpcell);
-/* Zeitschritt 0 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,0,tmpdata);
-dptr = mpc123_get_Vx(0);
+tmpdata = mxCreateNumericMatrix(6,12,mxDOUBLE_CLASS,mxREAL);
+mxSetField(output[0],0,"Vx",tmpdata);
 doptr = mxGetPr(tmpdata);
+for (j1=0;j1<12;j1++) {
+dptr = mpc123_get_Vx(j1);
 for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 1 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,1,tmpdata);
-dptr = mpc123_get_Vx(1);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 2 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,2,tmpdata);
-dptr = mpc123_get_Vx(2);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 3 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,3,tmpdata);
-dptr = mpc123_get_Vx(3);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 4 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,4,tmpdata);
-dptr = mpc123_get_Vx(4);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 5 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,5,tmpdata);
-dptr = mpc123_get_Vx(5);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 6 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,6,tmpdata);
-dptr = mpc123_get_Vx(6);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 7 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,7,tmpdata);
-dptr = mpc123_get_Vx(7);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 8 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,8,tmpdata);
-dptr = mpc123_get_Vx(8);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 9 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,9,tmpdata);
-dptr = mpc123_get_Vx(9);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 10 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,10,tmpdata);
-dptr = mpc123_get_Vx(10);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 11 */
-tmpdata = mxCreateNumericMatrix(6,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,11,tmpdata);
-dptr = mpc123_get_Vx(11);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<6;j++) {
-doptr[j] = (double)dptr[j]; }
+doptr[j+j1*6] = (double)dptr[j]; }
+}
 
 /* copy Ru */
-tmpcell = mxCreateCellArray(1,&num_cells);
-mxSetField(output[0],0,"Ru",tmpcell);
-/* Zeitschritt 0 */
-tmpdata = mxCreateNumericMatrix(1,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,0,tmpdata);
-dptr = mpc123_get_Ru(0);
+tmpdata = mxCreateNumericMatrix(1,12,mxDOUBLE_CLASS,mxREAL);
+mxSetField(output[0],0,"Ru",tmpdata);
 doptr = mxGetPr(tmpdata);
+for (j1=0;j1<12;j1++) {
+dptr = mpc123_get_Ru(j1);
 for (j=0;j<1;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 1 */
-tmpdata = mxCreateNumericMatrix(1,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,1,tmpdata);
-dptr = mpc123_get_Ru(1);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<1;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 2 */
-tmpdata = mxCreateNumericMatrix(1,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,2,tmpdata);
-dptr = mpc123_get_Ru(2);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<1;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 3 */
-tmpdata = mxCreateNumericMatrix(1,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,3,tmpdata);
-dptr = mpc123_get_Ru(3);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<1;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 4 */
-tmpdata = mxCreateNumericMatrix(1,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,4,tmpdata);
-dptr = mpc123_get_Ru(4);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<1;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 5 */
-tmpdata = mxCreateNumericMatrix(1,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,5,tmpdata);
-dptr = mpc123_get_Ru(5);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<1;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 6 */
-tmpdata = mxCreateNumericMatrix(1,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,6,tmpdata);
-dptr = mpc123_get_Ru(6);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<1;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 7 */
-tmpdata = mxCreateNumericMatrix(1,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,7,tmpdata);
-dptr = mpc123_get_Ru(7);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<1;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 8 */
-tmpdata = mxCreateNumericMatrix(1,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,8,tmpdata);
-dptr = mpc123_get_Ru(8);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<1;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 9 */
-tmpdata = mxCreateNumericMatrix(1,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,9,tmpdata);
-dptr = mpc123_get_Ru(9);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<1;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 10 */
-tmpdata = mxCreateNumericMatrix(1,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,10,tmpdata);
-dptr = mpc123_get_Ru(10);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<1;j++) {
-doptr[j] = (double)dptr[j]; }
-/* Zeitschritt 11 */
-tmpdata = mxCreateNumericMatrix(1,1,mxDOUBLE_CLASS,mxREAL);
-mxSetCell(tmpcell,11,tmpdata);
-dptr = mpc123_get_Ru(11);
-doptr = mxGetPr(tmpdata);
-for (j=0;j<1;j++) {
-doptr[j] = (double)dptr[j]; }
+doptr[j+j1*1] = (double)dptr[j]; }
+}
 
 /* copy debug_dgap */
 tmpdata = mxCreateNumericMatrix(20,1,mxDOUBLE_CLASS,mxREAL);

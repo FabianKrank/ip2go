@@ -39,7 +39,7 @@ clear ii
 generation_data.loopunrolling = 1;
 
 % DEKSTOP
-generation_data.path_target = 'C:\Users\fabia\OneDrive\Documents\Codegenerator\code';
+generation_data.path_target = '.\code';
 % LAPTOP
 % generation_data.path_target = 'C:\Users\neXus\OneDrive\Documents\Codegenerator\code';
 
@@ -95,7 +95,10 @@ if 1
 else
     generation_data.performance_test = 0;
 end
-
+% Speicherstruktur
+generation_data.mem_type=2;
+generation_data.simple_struct=0;
+generation_data.iter=num2cell(0:generation_data.dim.K);
 %% Solver generieren
 gen_lqdocpip(generation_data);
 
@@ -108,7 +111,7 @@ mex mpc123_wrap.c mpc123_glqdocpip.c -v OPTIMFLAGS='-DNDEBUG -O3'
 % mex mpc123_wrap.c mpc123_glqdocpip.c
 
 %% Ausführen
-mpc123_wrap(problemdata);
+res=mpc123_wrap(problemdata);
 cd('..')
 
 % lcc -noregistrylookup -DMX_COMPAT_32   -DMX_COMPAT_32  -DMATLAB_MEX_FILE -I"C:\Program Files (x86)\MATLAB\R2015a\sys\lcc\include" -I"C:\Program Files (x86)\MATLAB\R2015a\extern\include" -I"C:\Program Files (x86)\MATLAB\R2015a\simulink\include" -I"C:\Program Files (x86)\MATLAB\R2015a\sys\lcc\mex"   -I"C:\Program Files (x86)\MATLAB\R2015a\sys\lcc\include"  -DMATLAB_MEX_FILE "C:\Program Files (x86)\MATLAB\R2015a\sys\lcc\mex\lccstub.c" /Fo"mpc123_wraplib2.obj" "C:\Program Files (x86)\MATLAB\R2015a\sys\lcc\bin\lcclnk" -o mpc123_wrap.mexw32  -dll "C:\Program Files (x86)\MATLAB\R2015a\extern\lib\win32\lcc\mexFunction.def" -L"C:\Program Files (x86)\MATLAB\R2015a\sys\lcc\lib" -libpath "C:\Program Files (x86)\MATLAB\R2015a\extern\lib\win32\lcc" -libpath "C:\Program Files (x86)\MATLAB\R2015a\lib\win32" "mpc123_wraplib2.obj" -s C:\Users\fabia\AppData\Local\Temp\mex_64906944992944_8148\mpc123_wrap.obj C:\Users\fabia\AppData\Local\Temp\mex_64906944992944_8148\mpc123_glqdocpip.obj   libmx.lib libmex.lib libmat.lib

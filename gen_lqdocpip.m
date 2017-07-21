@@ -26,6 +26,14 @@ function [] = gen_lqdocpip(generation_data)
 %   Compilern gesetzt werden.
 %   Wenn Timerfunktion nicht korrekt funktioniert, steigt Solver mit Termcode 7
 %   Zeitlimit überschritten aus
+% 24.11.16 Annika Mayer
+%   - Weitere Datenstruktur, Speicherung als Array. Ermöglicht kleinere
+%   Codegröße durch Iteration über Diskretisierungsstellen. Ausführliche
+%   Dokumentation zur Änderung siehe (Changedoc_ip2goDatenstruktur.pdf).
+% 24.11.16 Annika Mayer
+%   - Erstellung der Strukturmasken in Funktion ausgelagert, zusätzlich
+%     vereinfachte Version für gendata.simple_struct==1 erstellt, bei der
+%     die Eingänge für alle Zeitschritte dieselbe Struktur haben
 global gendata;
 
 gendata = generation_data;
@@ -49,8 +57,23 @@ if isempty(gendata.path_structures)
     gendata.path_structures = [pwd '\structures'];
 end
 
-gendata.path_orig = pwd;
 
+if isempty(gendata.path_generator)
+    gendata.path_generator = [pwd '\generator'];
+end
+
+if isempty(gendata.path_wrap)
+    gendata.path_wrap = [pwd '\interfaces\matlab_wrap'];
+end
+
+if isempty(gendata.path_sfun)
+    gendata.path_sfun = [pwd '\interfaces\simulink_sfun'];
+end
+
+gendata.path_orig = pwd;
+% addpath(gendata.path_generator)
+% addpath(gendata.path_math)
+addpath(genpath(pwd))
 %% Parameter setzen
 % Allgemein
 gendata.prefix = [gendata.name '_'];
@@ -75,6 +98,13 @@ gendata.prec_out = 'double';
 gendata.prec_out_mx = 'mxDOUBLE_CLASS';
 gendata.prec_in = 'double';
 
+if gendata.mem_type==2
+
+gen_var_st2();
+analyse_savestruct();
+
+end
+
 % Maxima des jeweiligen Datentyps
 if strcmp(gendata.prec,'float')
     gendata.prec_max = 'FLT_MAX';
@@ -89,6 +119,11 @@ if ~isfield(gendata,'loopunrolling')
     gendata.loopunrolling = 0;
 end
 
+% Iterationem
+if ~isfield(gendata,'iter')
+     gendata.iter = num2cell(0:gendata.dim.K);  
+end    
+    
 %% Variablen, für die ein Interface erstellt werden soll
 % &nok --> Variable kommt nur einmal vor (nicht für jedes k)
 % &int --> Variable hat Typ "int" und nicht wie in "prec" definiert
@@ -141,51 +176,7 @@ if isfield(gendata, 'use_structures') && gendata.use_structures == 1
     full_structures = structures_load_default(gendata.dim.n_x,gendata.dim.n_u,gendata.dim.n_c,gendata.dim.n_s);
     
     % Spezielle Strukutren erstellen
-    custom_structures = cell(0);
-    % Gütefunktion - quad
-    custom_structures{end+1} = structures_gen_custom('Hxx_0',matrix_structures.Hxx{1});
-    custom_structures{end+1} = structures_gen_custom('Hxx_k',matrix_structures.Hxx{2});
-    custom_structures{end+1} = structures_gen_custom('Hxx_end',matrix_structures.Hxx{end});
-    custom_structures{end+1} = structures_gen_custom('Hxu_0',matrix_structures.Hxu{1});
-    custom_structures{end+1} = structures_gen_custom('Hxu_k',matrix_structures.Hxu{2});
-    custom_structures{end+1} = structures_gen_custom('Hxu_end',matrix_structures.Hxu{end});
-    custom_structures{end+1} = structures_gen_custom('Huu_0',matrix_structures.Huu{1});
-    custom_structures{end+1} = structures_gen_custom('Huu_k',matrix_structures.Huu{2});
-    custom_structures{end+1} = structures_gen_custom('Huu_end',matrix_structures.Huu{end});
-    custom_structures{end+1} = structures_gen_custom('Hss_0',matrix_structures.Hss{1});
-    custom_structures{end+1} = structures_gen_custom('Hss_k',matrix_structures.Hss{2});
-    custom_structures{end+1} = structures_gen_custom('Hss_end',matrix_structures.Hss{end});
-    % Gütefunktion - lin
-    custom_structures{end+1} = structures_gen_custom('f0x_0',matrix_structures.f0x{1});
-    custom_structures{end+1} = structures_gen_custom('f0x_k',matrix_structures.f0x{2});
-    custom_structures{end+1} = structures_gen_custom('f0x_end',matrix_structures.f0x{end});
-    custom_structures{end+1} = structures_gen_custom('f0u_0',matrix_structures.f0u{1});
-    custom_structures{end+1} = structures_gen_custom('f0u_k',matrix_structures.f0u{2});
-    custom_structures{end+1} = structures_gen_custom('f0u_end',matrix_structures.f0u{end});
-    custom_structures{end+1} = structures_gen_custom('f0s_0',matrix_structures.f0s{1});
-    custom_structures{end+1} = structures_gen_custom('f0s_k',matrix_structures.f0s{2});
-    custom_structures{end+1} = structures_gen_custom('f0s_end',matrix_structures.f0s{end});
-    % GNBs
-    custom_structures{end+1} = structures_gen_custom('fx_0',matrix_structures.fx{1});
-    custom_structures{end+1} = structures_gen_custom('fx_k',matrix_structures.fx{2});
-    custom_structures{end+1} = structures_gen_custom('fx_end',matrix_structures.fx{end});
-    custom_structures{end+1} = structures_gen_custom('fu_0',matrix_structures.fu{1});
-    custom_structures{end+1} = structures_gen_custom('fu_k',matrix_structures.fu{2});
-    custom_structures{end+1} = structures_gen_custom('fu_end',matrix_structures.fu{end});
-    custom_structures{end+1} = structures_gen_custom('f_0',matrix_structures.f{1});
-    custom_structures{end+1} = structures_gen_custom('f_k',matrix_structures.f{2});
-    custom_structures{end+1} = structures_gen_custom('f_end',matrix_structures.f{end});
-    % UGNBs
-    custom_structures{end+1} = structures_gen_custom('gx_0',matrix_structures.gx{1});
-    custom_structures{end+1} = structures_gen_custom('gx_k',matrix_structures.gx{2});
-    custom_structures{end+1} = structures_gen_custom('gx_end',matrix_structures.gx{end});
-    custom_structures{end+1} = structures_gen_custom('gu_0',matrix_structures.gu{1});
-    custom_structures{end+1} = structures_gen_custom('gu_k',matrix_structures.gu{2});
-    custom_structures{end+1} = structures_gen_custom('gu_end',matrix_structures.gu{end});
-    custom_structures{end+1} = structures_gen_custom('g_0',matrix_structures.g{1});
-    custom_structures{end+1} = structures_gen_custom('g_k',matrix_structures.g{2});
-    custom_structures{end+1} = structures_gen_custom('g_end',matrix_structures.g{end});
-    
+    [ custom_structures ] = gen_sparsity_masks( matrix_structures, gendata.mem_type, gendata.simple_struct );
     gendata.structures = {full_structures{1:end} custom_structures{1:end}};
     
     % IDs zuweisen
@@ -202,6 +193,7 @@ disp(' ');
 disp('Quellcode wird generiert...');
 
 gen_stat_init();
+
 
 cinclude = {'float.h' 'math.h'};
 hinclude = {};
@@ -321,7 +313,7 @@ if gendata.performance_test == 1
 end
 
 % Variablen Deklaration
-gendata.str.c.vars = gen_var();
+gendata.str.c.vars = gen_var_st();
 
 % Mathematische Funktionen (muss als letztes ausgeführt werden)
 gendata.str.c.mathfunctions = gen_functions();
@@ -461,4 +453,6 @@ gendata.stat.var.size_total = float_size * gendata.stat.var.num_float ...
     + int_size * gendata.stat.var.num_int;
 
 %% Ende
+% rmpath(gendata.path_generator)
+% rmpath(gendata.path_math)
 end

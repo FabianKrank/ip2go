@@ -41,7 +41,7 @@ ptests{2} = ptest;
 ptest = struct();
 
 ptest.name = 'factor';
-ptest.starting_point_methode = 0;
+ptest.starting_point_method = 0;
 ptest.runs = 10000;
 ptest.iterations = 5;
 
