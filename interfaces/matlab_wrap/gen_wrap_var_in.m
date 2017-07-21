@@ -44,16 +44,18 @@ addl('}')
 for i=1:length(vars)
     addc(['copy ' vars{i}.name])
     I2=0:K;
-    I2= I2((vars{i}.dim1~=0)&(vars{i}.dim2~=0));
-    if (~isempty(pstruc)) && (gendata.mem_type==2) && (~isempty(I2))
-      fcell=@(x)strcmp(vars{i}.name,x);
-      % Findet Index in pstruc Elemente für Eingangselement
-      I1=find(cellfun(fcell,pstruc.names)==1,1,'first');
-      if ~isempty(I1)
-      %Index der unterschiedlichen Elemente    
-      I2=pstruc.id_diff_input(1:pstruc.N_diff_input(I1),I1)-1; 
-      end
-    end 
+    if (~isempty(pstruc)) && (gendata.mem_type==2)
+        I2= I2((vars{i}.dim1~=0)&(vars{i}.dim2~=0));
+        if(~isempty(I2))
+            fcell=@(x)strcmp(vars{i}.name,x);
+            % Findet Index in pstruc Elemente für Eingangselement
+            I1=find(cellfun(fcell,pstruc.names)==1,1,'first');
+            if ~isempty(I1)
+                %Index der unterschiedlichen Elemente
+                I2=pstruc.id_diff_input(1:pstruc.N_diff_input(I1),I1)-1;
+            end
+        end
+    end
     
 %     if (gendata.simple_struct==1) && (gendata.mem_type==2)
 %         I2=[0,1,K];
